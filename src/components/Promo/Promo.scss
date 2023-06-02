@@ -1,0 +1,60 @@
+@import '../../utils/mixins.scss';
+
+.promo {
+  background-color: var(--color-dark-blue);
+  width: 100%;
+  padding-top: 75px;
+  padding-bottom: 75px;
+
+  &__wrapper {
+    width: var(--content-width);
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+  }
+
+  &__block {
+    width: 640px;
+  }
+
+  &__title {
+    margin: 0;
+    font-weight: 400;
+    font-size: 50px;
+    line-height: 58px;
+  }
+
+  &__txt {
+    margin: 36px 0 156px;
+    font-weight: 400;
+    font-size: 13px;
+    line-height: 16px;
+    opacity: .5;
+    max-width: 310px;
+  }
+
+  &__link {
+    @include reset-link;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 129px;
+    height: 36px;
+    border: 1px solid var(--color-white);
+    border-radius: 3px;
+    font-weight: 500;
+    font-size: 12px;
+    line-height: 16px;
+    @include transition;
+
+    &:hover {
+      opacity: .8;
+    }
+  }
+
+  &__img {
+    display: block;
+    width: 310px;
+    height: 310px;
+  }
+}

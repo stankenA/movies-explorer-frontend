@@ -1,6 +1,6 @@
 @mixin reset-link {
   text-decoration: none;
-  color: none;
+  color: inherit;
 }
 
 @mixin reset-button {

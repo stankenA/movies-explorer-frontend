@@ -5,12 +5,20 @@ import './vendor/fonts/fonts.css';
 import './App.scss';
 
 import Header from './components/Header/Header';
+import Main from './pages/Main/Main';
+import Movies from './pages/Movies/Movies';
 
 
 function App() {
   return (
-    <div className="App">
+    <div className="page">
       <Header />
+      <main className="content">
+        <Routes>
+          <Route path='/' element={<Main />} />
+          <Route path='/movies' element={<Movies />} />
+        </Routes>
+      </main>
     </div>
   );
 }
