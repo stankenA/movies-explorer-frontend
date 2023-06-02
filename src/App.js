@@ -1,12 +1,16 @@
+import React from 'react';
+import { Routes, Route } from 'react-router-dom';
 import './vendor/normalize.css';
 import './vendor/fonts/fonts.css';
 import './App.scss';
+
+import Header from './components/Header/Header';
 
 
 function App() {
   return (
     <div className="App">
-
+      <Header />
     </div>
   );
 }

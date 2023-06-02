@@ -1,0 +1,63 @@
+@import '../../utils/mixins.scss';
+@import '../../utils/variables.scss';
+
+.header {
+  &_page {
+    &_main {
+      background-color: var(--color-dark-blue);
+    }
+
+    &_other {
+      background-color: transparent;
+    }
+  }
+
+  &__wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: var(--content-width);
+    margin: 0 auto;
+    min-height: 74px;
+  }
+
+  &__link {
+    @include reset-link;
+  }
+
+  &__auth {
+    display: flex;
+    align-items: center;
+    gap: 30px;
+  }
+
+  &__signup {
+    @include reset-button;
+    color: var(--color-white);
+    font-weight: 500;
+    font-size: 12px;
+    line-height: 16px;
+    @include transition;
+
+    &:hover {
+      opacity: .8;
+    }
+  }
+
+  &__signin {
+    @include reset-button;
+    color: var(--color-black);
+    width: 76px;
+    height: 32px;
+    border-radius: 3px;
+    background-color: var(--color-green);
+    font-weight: 500;
+    font-size: 12px;
+    line-height: 16px;
+    @include transition;
+
+    &:hover {
+      opacity: .8;
+    }
+  }
+}
