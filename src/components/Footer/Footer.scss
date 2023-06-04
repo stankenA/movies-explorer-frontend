@@ -1,0 +1,50 @@
+@import '../../utils/variables.scss';
+@import '../../utils/mixins.scss';
+
+.footer {
+  padding-top: 79px;
+  min-height: 172px;
+  box-sizing: border-box;
+
+  &__wrapper {
+    width: var(--content-width);
+    margin: 0 auto;
+  }
+
+  &__title {
+    font-weight: 400;
+    font-size: 13px;
+    line-height: 16px;
+    text-align: center;
+    color: var(--color-grey);
+    margin: 0 0 20px;
+  }
+
+  &__content {
+    padding-top: 20px;
+    border-top: 1px solid #424242;
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+  }
+
+  &__txt {
+    font-weight: 400;
+    font-size: 13px;
+    line-height: 16px;
+    margin: 0;
+  }
+
+  &__link {
+    @include reset-link;
+    @include transition;
+
+    &:hover {
+      opacity: .6;
+    }
+  }
+
+  &__link:first-of-type {
+    margin-left: auto;
+  }
+}

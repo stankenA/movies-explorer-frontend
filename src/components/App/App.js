@@ -7,6 +7,7 @@ import './App.scss';
 import Header from '../Header/Header';
 import Main from '../../pages/Main/Main';
 import Movies from '../../pages/Movies/Movies';
+import Footer from '../Footer/Footer';
 
 
 function App() {
@@ -19,6 +20,7 @@ function App() {
           <Route path='/movies' element={<Movies />} />
         </Routes>
       </main>
+      <Footer />
     </div>
   );
 }
