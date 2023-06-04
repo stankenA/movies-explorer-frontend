@@ -19,7 +19,7 @@ export default function Promo() {
             Узнать больше
           </Link>
         </div>
-        <img src={bannerPicture} alt="banner picture" className="promo__img" />
+        <img src={bannerPicture} alt="banner" className="promo__img" />
       </div>
     </section>
   )
