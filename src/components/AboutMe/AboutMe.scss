@@ -1,0 +1,75 @@
+@import '../../utils/variables.scss';
+@import '../../utils/mixins.scss';
+
+.about {
+  &__wrapper {
+    width: var(--content-width);
+    margin: 110px auto;
+  }
+
+  &__title {
+    font-weight: 400;
+    font-size: 22px;
+    line-height: 27px;
+    letter-spacing: -0.04em;
+    margin: 0 0 23px;
+  }
+
+  &__content {
+    display: flex;
+    justify-content: space-between;
+    padding-top: 66px;
+    border-top: 1px solid #DADADA;
+    height: 327px;
+  }
+
+  &__info {
+    display: flex;
+    flex-direction: column;
+    width: 600px;
+    height: 100%;
+  }
+
+  &__name {
+    margin: 0;
+    font-weight: 400;
+    font-size: 50px;
+    line-height: 58px;
+    letter-spacing: -0.04em;
+  }
+
+  &__subtitle {
+    font-weight: 500;
+    font-size: 18px;
+    line-height: 20px;
+    margin: 18px 0 26px;
+  }
+
+  &__txt {
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 22px;
+    margin: 0;
+  }
+
+  &__link {
+    display: block;
+    margin-top: auto;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 17px;
+    @include reset-link;
+    @include transition;
+
+    &:hover {
+      opacity: .8;
+    }
+  }
+
+  &__img {
+    display: block;
+    border-radius: 10px;
+    width: 270px;
+    height: 100%;
+  }
+}

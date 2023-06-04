@@ -42,9 +42,9 @@
     &:hover {
       opacity: .6;
     }
-  }
 
-  &__link:first-of-type {
-    margin-left: auto;
+    &:first-of-type {
+      margin-left: auto;
+    }
   }
 }
