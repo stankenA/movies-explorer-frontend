@@ -6,11 +6,11 @@ import AboutMe from '../../components/AboutMe/AboutMe';
 
 export default function Main() {
   return (
-    <>
+    <main className="content">
       <Promo />
       <AboutProject />
       <Techs />
       <AboutMe />
-    </>
+    </main>
   )
 }

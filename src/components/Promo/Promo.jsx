@@ -15,7 +15,7 @@ export default function Promo() {
           <p className="promo__txt">
             Листайте ниже, чтобы узнать больше про этот проект и его создателя.
           </p>
-          <Link to='#' className="promo__link">
+          <Link to='/movies' className="promo__link">
             Узнать больше
           </Link>
         </div>
