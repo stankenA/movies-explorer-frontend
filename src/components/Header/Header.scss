@@ -23,6 +23,11 @@
 
   &__link {
     @include reset-link;
+    @include transition;
+
+    &:hover {
+      opacity: .8;
+    }
   }
 
   &__auth {
