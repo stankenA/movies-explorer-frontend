@@ -1,5 +1,6 @@
 :root {
   --content-width: 1140px;
+  --width-header-footer: 1140px;
 
   --color-black: #000;
   --color-light-black: #202020;
@@ -7,4 +8,9 @@
   --color-green: #3DDC84;
   --color-dark-blue: #073042;
   --color-grey: #8B8B8B;
+
+  @media screen and (max-width: 1279px) {
+    --content-width: 668px;
+    --width-header-footer: 708px;
+  }
 }

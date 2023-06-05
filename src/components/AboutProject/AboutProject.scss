@@ -5,6 +5,11 @@
   &__wrapper {
     width: var(--content-width);
     margin: 110px auto;
+
+    @media screen and (max-width: 1279px) {
+      margin-top: 90px;
+      margin-bottom: 86px;
+    }
   }
 
   &__title {
@@ -22,10 +27,18 @@
     padding-top: 70px;
     border-top: 1px solid #DADADA;
     margin-bottom: 110px;
+
+    @media screen and (max-width: 1279px) {
+      margin-bottom: 89px;
+    }
   }
 
   &__column {
     width: 550px;
+
+    @media screen and (max-width: 1279px) {
+      width: 319px;
+    }
   }
 
   &__subtitle {
@@ -34,6 +47,10 @@
     line-height: 24px;
     letter-spacing: -0.04em;
     margin: 0 0 26px;
+
+    @media screen and (max-width: 1279px) {
+      margin-bottom: 20px;
+    }
   }
 
   &__description {
@@ -49,6 +66,10 @@
     grid-auto-rows: 36px;
     justify-items: center;
     align-items: center;
+
+    @media screen and (max-width: 1279px) {
+      grid-template-columns: 140px 1fr;
+    }
   }
 
   &__backend {
