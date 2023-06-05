@@ -9,7 +9,11 @@
 
   @media screen and (max-width: 1279px) {
     padding-top: 133px;
+  }
 
+  @media screen and (max-width: 767px) {
+    padding-top: 70px;
+    padding-bottom: 29px;
   }
 
   &__wrapper {
@@ -22,6 +26,10 @@
       flex-direction: column-reverse;
       align-items: center;
       gap: 48px;
+    }
+
+    @media screen and (max-width: 767px) {
+      gap: 45px;
     }
   }
 
@@ -48,6 +56,11 @@
       line-height: 50px;
       letter-spacing: -2.5px;
     }
+
+    @media screen and (max-width: 767px) {
+      font-size: 30px;
+      line-height: 38px;
+    }
   }
 
   &__txt {
@@ -63,6 +76,12 @@
       margin-top: 22px;
       margin-bottom: 92px;
       max-width: 260px;
+    }
+
+    @media screen and (max-width: 767px) {
+      font-size: 13px;
+      line-height: 16px;
+      margin-bottom: 80px;
     }
   }
 
@@ -89,5 +108,10 @@
     display: block;
     width: 310px;
     height: 310px;
+
+    @media screen and (max-width: 767px) {
+      width: 210px;
+      height: 206px;
+    }
   }
 }

@@ -12,7 +12,7 @@ export default function Footer() {
           Учебный проект Яндекс.Практикум х BeatFilm.
         </h4>
         <div className="footer__content">
-          <p className="footer__txt">
+          <p className="footer__txt footer__txt_year">
             &#64; {currentYear}
           </p>
           <Link to='#' className="footer__link">

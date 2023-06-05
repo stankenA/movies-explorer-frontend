@@ -10,6 +10,11 @@
     padding-top: 61px;
   }
 
+  @media screen and (max-width: 767px) {
+    padding-top: 79px;
+    padding-bottom: 20px;
+  }
+
   &__wrapper {
     width: var(--width-header-footer);
     margin: 0 auto;
@@ -22,6 +27,11 @@
     text-align: center;
     color: var(--color-grey);
     margin: 0 0 20px;
+
+    @media screen and (max-width: 767px) {
+      font-size: 12px;
+      line-height: 15px;
+    }
   }
 
   &__content {
@@ -30,6 +40,13 @@
     display: flex;
     justify-content: space-between;
     gap: 20px;
+
+    @media screen and (max-width: 767px) {
+      flex-direction: column;
+      align-items: center;
+      padding-top: 30px;
+      gap: 12px;
+    }
   }
 
   &__txt {
@@ -37,6 +54,19 @@
     font-size: 13px;
     line-height: 16px;
     margin: 0;
+
+    @media screen and (max-width: 767px) {
+      font-size: 12px;
+      line-height: 15px;
+    }
+
+    @media screen and (max-width: 767px) {
+      &_year {
+        color: var(--color-grey);
+        order: 2;
+        margin-top: 18px;
+      }
+    }
   }
 
   &__link {
@@ -49,6 +79,10 @@
 
     &:first-of-type {
       margin-left: auto;
+
+      @media screen and (max-width: 767px) {
+        margin-left: unset;
+      }
     }
   }
 }

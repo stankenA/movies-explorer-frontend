@@ -13,4 +13,9 @@
     --content-width: 668px;
     --width-header-footer: 708px;
   }
+
+  @media screen and (max-width: 767px) {
+    --width-header-footer: 291px;
+    --content-width: 292px;
+  }
 }
