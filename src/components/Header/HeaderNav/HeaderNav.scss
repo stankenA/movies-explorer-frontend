@@ -1,0 +1,47 @@
+@import '../../../utils/mixins.scss';
+@import '../../../utils/variables.scss';
+
+.header {
+  &__txt {
+    margin: 0;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 18px;
+
+    @media screen and (max-width: 767px) {
+      font-size: 10px;
+      line-height: 16px;
+    }
+  }
+
+  &__nav {
+    display: flex;
+    align-items: center;
+    gap: 50px;
+  }
+
+  &__movies-container {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+  }
+
+  &__profile {
+    display: flex;
+    align-items: center;
+    gap: 13px;
+  }
+
+  &__profile-icon {
+    display: block;
+    width: 30px;
+    height: 30px;
+    border-radius: 6px;
+    background: url(../../../images/profile-icon.svg) no-repeat center / 10px 10px;
+    background-color: #313131;
+  }
+
+  &__hamburger {
+    display: none;
+  }
+}

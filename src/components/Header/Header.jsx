@@ -1,20 +1,29 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
-import logo from '../../images/logo.svg';
+import React, { useState } from 'react';
+import { Link, useLocation } from 'react-router-dom';
+
+import HeaderAuth from './HeaderAuth/HeaderAuth';
+import HeaderNav from './HeaderNav/HeaderNav';
 
 import './Header.scss';
+import logo from '../../images/logo.svg';
 
 export default function Header() {
+
+  const [loggedIn, setLoggedIn] = useState(false);
+
+  const location = useLocation();
+  const isMainPage = location.pathname === '/';
+
   return (
-    <header className="header header_page_main">
+    <header className={`header header_page_${isMainPage ? 'main' : 'other'}`}>
       <div className="header__wrapper">
         <Link to='/' className="header__link">
           <img src={logo} alt="logo" className="header__logo" />
         </Link>
-        <div className="header__auth">
-          <button type="button" className="header__signup">Регистрация</button>
-          <button type="button" className="header__signin">Войти</button>
-        </div>
+        {loggedIn
+          ? <HeaderNav />
+          : <HeaderAuth />
+        }
       </div>
     </header>
   )

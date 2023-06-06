@@ -12,11 +12,13 @@ import Footer from '../Footer/Footer';
 function App() {
 
   const location = useLocation();
-  const isMainOrMovies = location.pathname === '/' || location.pathname === '/movies';
+  const isNotAuth = location.pathname === '/sign-in'
+    || location.pathname === '/sign-up'
+    || location.pathname === '*';
 
   return (
     <div className="App">
-      {isMainOrMovies && <Header />}
+      {!isNotAuth && <Header />}
       <Routes>
         <Route path='/'>
           <Route index element={<Main />} />
@@ -27,7 +29,7 @@ function App() {
         <Route path='/sign-in' element={<Login />} />
       <Route path='*' element={<NotFound />} /> */}
       </Routes>
-      {isMainOrMovies && <Footer />}
+      {!isNotAuth && <Footer />}
     </div>
   );
 }
