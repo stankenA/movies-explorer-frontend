@@ -28,5 +28,13 @@
     &:hover {
       opacity: .8;
     }
+
+    &_main {
+      display: none;
+
+      @media screen and (max-width: 1279px) {
+        display: inline;
+      }
+    }
   }
 }

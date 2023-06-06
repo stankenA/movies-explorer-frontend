@@ -16,6 +16,6 @@
   margin: 0;
 }
 
-@mixin transition {
-  transition: all .4s ease;
+@mixin transition($time: .4s) {
+  transition: all $time ease;
 }
