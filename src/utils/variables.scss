@@ -6,16 +6,17 @@
   --color-light-black: #202020;
   --color-white: #fff;
   --color-green: #3DDC84;
+  --color-blue: #4285F4;
   --color-dark-blue: #073042;
   --color-grey: #8B8B8B;
 
   @media screen and (max-width: 1279px) {
-    --content-width: 668px;
-    --width-header-footer: 708px;
+    --content-width: 87%;
+    --width-header-footer: 92%;
   }
 
   @media screen and (max-width: 767px) {
-    --width-header-footer: 291px;
-    --content-width: 292px;
+    --width-header-footer: 91%;
+    --content-width: 91%;
   }
 }

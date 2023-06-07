@@ -19,16 +19,16 @@ function App() {
   return (
     <div className="App">
       {!isNotAuth && <Header />}
-      <Routes>
-        <Route path='/'>
-          <Route index element={<Main />} />
+      <main className="content">
+        <Routes>
+          <Route path='/' element={<Main />} />
           <Route path='/movies' element={<Movies />} />
-        </Route>
-        {/* <Route path='/profile' element={<Profile />} />
-        <Route path='/sign-up' element={<Registration />} />
-        <Route path='/sign-in' element={<Login />} />
-      <Route path='*' element={<NotFound />} /> */}
-      </Routes>
+          {/* <Route path='/profile' element={<Profile />} />
+          <Route path='/sign-up' element={<Registration />} />
+          <Route path='/sign-in' element={<Login />} />
+          <Route path='*' element={<NotFound />} /> */}
+        </Routes>
+      </main>
       {!isNotAuth && <Footer />}
     </div>
   );

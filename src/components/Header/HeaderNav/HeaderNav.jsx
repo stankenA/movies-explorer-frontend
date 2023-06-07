@@ -11,8 +11,8 @@ export default function HeaderNav() {
     <>
       <nav className={`header__nav ${isMobileOpened ? 'header__nav_opened' : ''}`}>
         <div className={`header__nav-wrapper ${isMobileOpened ? 'header__nav-wrapper_opened' : ''}`}>
-          <div className="header__movies-container">
-            <Link to='/movies' className="header__link header__link_main">
+          <div className="header__nav-container">
+            <Link to='/' className="header__link header__link_main">
               <p className="header__txt">
                 Главная
               </p>
