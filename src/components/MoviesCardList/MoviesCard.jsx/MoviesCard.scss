@@ -13,6 +13,7 @@
     padding: 14px;
     box-sizing: border-box;
     display: flex;
+    align-items: center;
     justify-content: space-between;
   }
 
@@ -68,5 +69,16 @@
     height: 14px;
     opacity: .2;
     @include transition;
+  }
+
+  &__img {
+    display: block;
+    width: 100%;
+    height: 190px;
+    object-fit: cover;
+
+    @media screen and (max-width: 769px) {
+      height: 168px;
+    }
   }
 }

@@ -32,6 +32,30 @@ export default function MoviesCardList() {
       thumbnail: moviePic,
       id: 4,
     },
+    {
+      title: '33 слова о дизайне',
+      length: '1ч 47м',
+      thumbnail: moviePic,
+      id: 5,
+    },
+    {
+      title: '33 слова о дизайне',
+      length: '1ч 47м',
+      thumbnail: moviePic,
+      id: 6,
+    },
+    {
+      title: '33 слова о дизайне',
+      length: '1ч 47м',
+      thumbnail: moviePic,
+      id: 7,
+    },
+    {
+      title: '33 слова о дизайне',
+      length: '1ч 47м',
+      thumbnail: moviePic,
+      id: 8,
+    },
   ];
 
   return (
@@ -47,6 +71,7 @@ export default function MoviesCardList() {
             />
           ))}
         </ul>
+        <button type="button" className="movies__more">Ещё</button>
       </div>
     </section>
   )

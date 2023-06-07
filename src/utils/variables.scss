@@ -1,5 +1,6 @@
 :root {
   --content-width: 1140px;
+  --content-movies-width: 1140px;
   --width-header-footer: 1140px;
 
   --color-black: #000;
@@ -12,11 +13,13 @@
 
   @media screen and (max-width: 1279px) {
     --content-width: 87%;
+    --content-movies-width: 92%;
     --width-header-footer: 92%;
   }
 
   @media screen and (max-width: 767px) {
     --width-header-footer: 91%;
     --content-width: 91%;
+    --content-movies-width: 91%;
   }
 }
