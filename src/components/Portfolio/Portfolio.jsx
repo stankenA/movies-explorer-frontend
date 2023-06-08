@@ -12,8 +12,8 @@ export default function Portfolio() {
       <ul className="portfolio__list">
         {portfolioArr.map((el) => (
           <li className="portfolio__item" key={el}>
-            <Link className="portfolio__link">
-              {el}
+            <Link className="portfolio__link" to={el.link} target="_blank">
+              {el.name}
             </Link>
           </li>
         ))}
