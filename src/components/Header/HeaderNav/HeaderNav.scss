@@ -8,13 +8,13 @@
     font-size: 14px;
     line-height: 18px;
 
-    @media screen and (max-width: 767px) {
+    @media screen and (max-width: 1279px) {
       font-size: 18px;
       line-height: 22px;
     }
 
     &_profile {
-      @media screen and (max-width: 767px) {
+      @media screen and (max-width: 1279px) {
         font-size: 14px;
         line-height: 16px;
       }
@@ -71,6 +71,7 @@
 
     @media screen and (max-width: 767px) {
       width: 100%;
+      padding-top: 145px;
     }
   }
 
@@ -82,6 +83,11 @@
 
     @media screen and (max-width: 1279px) {
       flex-direction: column;
+      gap: 26px;
+    }
+
+    @media screen and (max-width: 767px) {
+      gap: 19px;
     }
   }
 
@@ -98,7 +104,7 @@
     }
 
     @media screen and (max-width: 767px) {
-      bottom: 55px;
+      bottom: 48px;
     }
   }
 
@@ -135,6 +141,11 @@
       position: absolute;
       top: 22px;
       right: 22px;
+    }
+
+    @media screen and (max-width: 767px) {
+      top: 15px;
+      right: 15px;
     }
   }
 }

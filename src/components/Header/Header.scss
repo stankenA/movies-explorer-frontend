@@ -24,6 +24,7 @@
   &__link {
     @include reset-link;
     @include transition;
+    padding-bottom: 2px;
 
     &:hover {
       opacity: .8;
@@ -34,6 +35,16 @@
 
       @media screen and (max-width: 1279px) {
         display: inline;
+      }
+
+      @media screen and (max-width: 767px) {
+        padding-bottom: 7px;
+      }
+    }
+
+    &_active {
+      @media screen and (max-width: 1279px) {
+        border-bottom: 2px solid var(--color-white);
       }
     }
   }

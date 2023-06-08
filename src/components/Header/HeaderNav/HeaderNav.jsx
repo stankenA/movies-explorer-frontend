@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, NavLink } from 'react-router-dom';
 
 import './HeaderNav.scss';
 
@@ -7,26 +7,46 @@ export default function HeaderNav() {
 
   const [isMobileOpened, setIsMobileOpened] = useState(false);
 
+  function openMenu() {
+    setIsMobileOpened(true)
+  }
+
+  function closeMenu() {
+    setIsMobileOpened(false)
+  }
+
   return (
     <>
       <nav className={`header__nav ${isMobileOpened ? 'header__nav_opened' : ''}`}>
         <div className={`header__nav-wrapper ${isMobileOpened ? 'header__nav-wrapper_opened' : ''}`}>
           <div className="header__nav-container">
-            <Link to='/' className="header__link header__link_main">
+            <NavLink
+              to='/'
+              className={({ isActive }) => `header__link header__link_main ${isActive ? 'header__link_active' : ''}`}
+              onClick={closeMenu}
+            >
               <p className="header__txt">
                 Главная
               </p>
-            </Link>
-            <Link to='/movies' className="header__link">
+            </NavLink>
+            <NavLink
+              to='/movies'
+              className={({ isActive }) => `header__link ${isActive ? 'header__link_active' : ''}`}
+              onClick={closeMenu}
+            >
               <p className="header__txt">
                 Фильмы
               </p>
-            </Link>
-            <Link to='/saved-movies' className="header__link">
+            </NavLink>
+            <NavLink
+              to='/saved-movies'
+              className={({ isActive }) => `header__link ${isActive ? 'header__link_active' : ''}`}
+              onClick={closeMenu}
+            >
               <p className="header__txt">
                 Сохранённые фильмы
               </p>
-            </Link>
+            </NavLink>
           </div>
           <Link to='/profile' className="header__link">
             <div className="header__profile">
@@ -36,10 +56,10 @@ export default function HeaderNav() {
               <span className="header__profile-icon"></span>
             </div>
           </Link>
-          <button type="button" className="header__close" onClick={() => setIsMobileOpened(false)}></button>
+          <button type="button" className="header__close" onClick={closeMenu}></button>
         </div>
       </nav>
-      <button type="button" className="header__hamburger" onClick={() => setIsMobileOpened(true)}></button>
+      <button type="button" className="header__hamburger" onClick={openMenu}></button>
     </>
   )
 }
