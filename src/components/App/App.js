@@ -12,18 +12,20 @@ import Profile from '../../pages/Profile/Profile';
 import Registration from '../../pages/Registration/Registration';
 import Login from '../../pages/Login/Login';
 import Footer from '../Footer/Footer';
+import NotFound from '../../pages/NotFound/NotFound';
 
 function App() {
 
   const location = useLocation();
-  const isNotContextPages = location.pathname === '/sign-in'
-    || location.pathname === '/sign-up'
-    || location.pathname === '*';
+  const isContextPages = location.pathname === '/'
+    || location.pathname === '/movies'
+    || location.pathname === '/saved-movies'
+    || location.pathname === '/profile';
   const isNotProfilePage = location.pathname === '/profile';
 
   return (
     <div className="page">
-      {!isNotContextPages && <Header />}
+      {isContextPages && <Header />}
       <main className="content">
         <Routes>
           <Route path='/' element={<Main />} />
@@ -32,10 +34,10 @@ function App() {
           <Route path='/profile' element={<Profile />} />
           <Route path='/sign-up' element={<Registration />} />
           <Route path='/sign-in' element={<Login />} />
-          {/* <Route path='*' element={<NotFound />} /> */}
+          <Route path='*' element={<NotFound />} />
         </Routes>
       </main>
-      {!isNotContextPages && !isNotProfilePage && <Footer />}
+      {isContextPages && !isNotProfilePage && <Footer />}
     </div>
   );
 }

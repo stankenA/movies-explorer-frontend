@@ -1,0 +1,70 @@
+@import '../../utils/variables.scss';
+@import '../../utils/mixins.scss';
+
+.not-found {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  @media screen and (max-width: 767px) {
+    box-sizing: border-box;
+    padding-top: 200px;
+    padding-bottom: 30px;
+  }
+
+  &__container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 184px;
+
+    @media screen and (max-width: 767px) {
+      margin-bottom: 284px;
+    }
+  }
+
+  &__title {
+    font-weight: 400;
+    font-size: 140px;
+    line-height: 169px;
+    margin: 0 0 5px;
+
+    @media screen and (max-width: 767px) {
+      font-size: 80px;
+      line-height: 97px;
+      margin-bottom: 10px;
+    }
+  }
+
+  &__description {
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 19px;
+    margin: 0;
+
+    @media screen and (max-width: 767px) {
+      font-size: 12px;
+      line-height: 15px;
+    }
+  }
+
+  &__btn {
+    @include reset-button;
+    color: var(--color-blue);
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 19px;
+    @include transition;
+
+    &:hover {
+      opacity: .7;
+    }
+
+    @media screen and (max-width: 767px) {
+      font-size: 12px;
+      line-height: 15px;
+    }
+  }
+}
