@@ -19,13 +19,13 @@ export default function SignForm({ isRegistration }) {
             {isRegistration &&
               <>
                 <label htmlFor="name" className="sign__label">Имя</label>
-                <input id="name" name="name" type="text" className="sign__input" />
+                <input id="name" name="name" type="text" className="sign__input" required />
               </>
             }
             <label htmlFor="email" className="sign__label">E-mail</label>
-            <input id="email" name="email" type="email" className="sign__input" />
+            <input id="email" name="email" type="email" className="sign__input" required />
             <label htmlFor="password" className="sign__label">Пароль</label>
-            <input id="password" name="password" type="password" className="sign__input" />
+            <input id="password" name="password" type="password" className="sign__input" required />
             <p className="sign__error">
               Что-то пошло не так...
             </p>

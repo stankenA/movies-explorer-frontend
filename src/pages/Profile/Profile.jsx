@@ -31,6 +31,7 @@ export default function Profile() {
               value={nameValue}
               onChange={(evt) => setNameValue(evt.target.value)}
               disabled={!isEditing}
+              required
             />
           </div>
           <span className="profile__line"></span>
@@ -45,6 +46,7 @@ export default function Profile() {
               value={emailValue}
               onChange={(evt) => setEmailValue(evt.target.value)}
               disabled={!isEditing}
+              required
             />
           </div>
         </form>

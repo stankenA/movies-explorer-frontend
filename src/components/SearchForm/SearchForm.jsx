@@ -9,7 +9,7 @@ export default function SearchForm() {
     <section className="search" aria-label="search">
       <form className="search__wrapper" name="search">
         <div className="search__container">
-          <input type="text" className="search__input" placeholder="Фильмы" />
+          <input type="text" className="search__input" placeholder="Фильмы" required />
           <button type="submit" className="search__submit">
             <span className="search__submit-arrow"></span>
           </button>

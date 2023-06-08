@@ -17,6 +17,7 @@ export default function SearchFilter() {
           className="search__checkbox"
           checked={isShortsChecked}
           onChange={e => setIsShortsChecked(e.target.checked)}
+          required
         />
       </div>
       <p className="search__txt">
