@@ -33,17 +33,14 @@
     &_main {
       display: none;
 
-      @media screen and (max-width: 1279px) {
-        display: inline;
-      }
-
       @media screen and (max-width: 767px) {
+        display: inline;
         padding-bottom: 7px;
       }
     }
 
     &_active {
-      @media screen and (max-width: 1279px) {
+      @media screen and (max-width: 767px) {
         border-bottom: 2px solid var(--color-white);
       }
     }

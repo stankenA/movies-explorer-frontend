@@ -8,13 +8,13 @@
     font-size: 14px;
     line-height: 18px;
 
-    @media screen and (max-width: 1279px) {
+    @media screen and (max-width: 767px) {
       font-size: 18px;
       line-height: 22px;
     }
 
     &_profile {
-      @media screen and (max-width: 1279px) {
+      @media screen and (max-width: 767px) {
         font-size: 14px;
         line-height: 16px;
       }
@@ -27,7 +27,7 @@
     gap: 50px;
     @include transition;
 
-    @media screen and (max-width: 1279px) {
+    @media screen and (max-width: 767px) {
       position: fixed;
       top: 0;
       right: 0;
@@ -52,7 +52,7 @@
     box-sizing: border-box;
     @include transition(.6s);
 
-    @media screen and (max-width: 1279px) {
+    @media screen and (max-width: 767px) {
       position: fixed;
       z-index: 2;
       top: 0;
@@ -70,8 +70,11 @@
     }
 
     @media screen and (max-width: 767px) {
-      width: 100%;
       padding-top: 145px;
+    }
+
+    @media screen and (max-width: 520px) {
+      width: 100%;
     }
   }
 
@@ -82,11 +85,11 @@
     gap: 20px;
 
     @media screen and (max-width: 1279px) {
-      flex-direction: column;
       gap: 26px;
     }
 
     @media screen and (max-width: 767px) {
+      flex-direction: column;
       gap: 19px;
     }
   }
@@ -96,7 +99,7 @@
     align-items: center;
     gap: 13px;
 
-    @media screen and (max-width: 1279px) {
+    @media screen and (max-width: 767px) {
       position: absolute;
       bottom: 92px;
       right: 50%;
@@ -124,7 +127,7 @@
     height: 44px;
     background: url(../../../images/hamburger.svg) no-repeat center / 28px 23px;
 
-    @media screen and (max-width: 1279px) {
+    @media screen and (max-width: 767px) {
       display: block;
     }
   }
@@ -136,7 +139,7 @@
     height: 30px;
     background: url(../../../images/close-cross.svg) no-repeat center / cover;
 
-    @media screen and (max-width: 1279px) {
+    @media screen and (max-width: 767px) {
       display: block;
       position: absolute;
       top: 22px;

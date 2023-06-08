@@ -15,12 +15,12 @@ export default function Footer() {
           <p className="footer__txt footer__txt_year">
             &#64; {currentYear}
           </p>
-          <Link to='#' className="footer__link">
+          <Link to='https://practicum.yandex.ru/' target="_blank" className="footer__link">
             <p className="footer__txt">
               Яндекс.Практикум
             </p>
           </Link>
-          <Link to='#' className="footer__link">
+          <Link to='https://github.com/stankenA' target="_blank" className="footer__link">
             <p className="footer__txt">
               Github
             </p>
