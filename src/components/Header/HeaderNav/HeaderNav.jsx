@@ -48,7 +48,7 @@ export default function HeaderNav() {
               </p>
             </NavLink>
           </div>
-          <Link to='/profile' className="header__link">
+          <Link to='/profile' className="header__link" onClick={closeMenu}>
             <div className="header__profile">
               <p className="header__txt header__txt_profile">
                 Аккаунт
