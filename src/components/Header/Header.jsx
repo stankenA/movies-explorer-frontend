@@ -9,7 +9,7 @@ import logo from '../../images/logo.svg';
 
 export default function Header() {
 
-  const [loggedIn, setLoggedIn] = useState(true);
+  const [loggedIn, setLoggedIn] = useState(false);
 
   const location = useLocation();
   const isMainPage = location.pathname === '/';
