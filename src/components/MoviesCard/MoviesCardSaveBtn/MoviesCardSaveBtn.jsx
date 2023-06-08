@@ -8,7 +8,7 @@ export default function MoviesCardSaveBtn() {
 
   return (
     <button
-      button="button"
+      type="button"
       className={`movies__save ${isSaved ? 'movies__save_checked' : ''}`}
       onClick={() => setIsSaved(!isSaved)}
     >

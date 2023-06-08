@@ -1,5 +1,5 @@
 import React from 'react';
-import MoviesCard from '../MoviesCard.jsx/MoviesCard';
+import MoviesCard from '../MoviesCard/MoviesCard';
 
 import './MoviesCardList.scss';
 import moviePic from '../../images/movie-picture.jpg';

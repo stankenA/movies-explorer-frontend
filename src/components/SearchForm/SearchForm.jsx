@@ -6,7 +6,7 @@ import SearchFilter from './SearchFilter/SearchFilter';
 export default function SearchForm() {
 
   return (
-    <section className="search">
+    <section className="search" aria-label="search">
       <form className="search__wrapper" name="search">
         <div className="search__container">
           <input type="text" className="search__input" placeholder="Фильмы" />

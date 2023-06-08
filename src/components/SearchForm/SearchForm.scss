@@ -43,6 +43,11 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    @include transition;
+
+    &:hover {
+      opacity: .7;
+    }
   }
 
   &__submit-arrow {
