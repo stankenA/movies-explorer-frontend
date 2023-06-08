@@ -1,0 +1,21 @@
+@import '../../../utils/variables.scss';
+@import '../../../utils/mixins.scss';
+
+.movies {
+  &__delete {
+    @include reset-button;
+    width: 30px;
+    height: 30px;
+    box-sizing: border-box;
+    border: 1px solid transparent;
+    border-radius: 50%;
+    background: url(../../../images/close-cross.svg) no-repeat center / 14px 14px;
+    background-color: #313131;
+    @include transition;
+
+    &:hover {
+      border-color: var(--color-white);
+      transform: rotate(90deg);
+    }
+  }
+}

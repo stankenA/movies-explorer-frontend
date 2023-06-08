@@ -2,38 +2,6 @@
 @import '../../../utils/mixins.scss';
 
 .movies {
-  &__card {
-    width: 100%;
-    height: 100%;
-    background-color: #222222;
-  }
-
-  &__card-top {
-    width: 100%;
-    padding: 14px;
-    box-sizing: border-box;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-  }
-
-  &__title {
-    font-size: 15px;
-    line-height: 18px;
-    margin: 0 0 9px;
-    max-width: 280px;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-  }
-
-  &__length {
-    font-size: 11px;
-    line-height: 13px;
-    margin: 0;
-    color: var(--color-grey);
-  }
-
   &__save {
     @include reset-button;
     width: 30px;
@@ -69,16 +37,5 @@
     height: 14px;
     opacity: .2;
     @include transition;
-  }
-
-  &__img {
-    display: block;
-    width: 100%;
-    height: 190px;
-    object-fit: cover;
-
-    @media screen and (max-width: 769px) {
-      height: 168px;
-    }
   }
 }
