@@ -1,0 +1,136 @@
+@import '../../utils/variables.scss';
+@import '../../utils/mixins.scss';
+
+.sign {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  padding-top: 36px;
+  padding-bottom: 30px;
+
+  @media screen and (max-width: 767px) {
+    padding-top: 40px;
+  }
+
+  &__wrapper {
+    width: 396px;
+
+    @media screen and (max-width: 767px) {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      width: 81%;
+    }
+  }
+
+  &__title {
+    font-weight: 500;
+    font-size: 24px;
+    line-height: 29px;
+    margin: 40px 0 30px;
+
+    @media screen and (max-width: 767px) {
+      margin-top: 46px;
+      margin-bottom: 76px;
+    }
+  }
+
+  &__form {
+    display: flex;
+    flex-direction: column;
+  }
+
+  &__fieldset {
+    padding: 0;
+    border: none;
+    margin-bottom: 91px;
+    position: relative;
+
+    @media screen and (max-width: 767px) {
+      margin-bottom: 158px;
+    }
+  }
+
+  &__label {
+    display: inline-block;
+    font-weight: 400;
+    font-size: 10px;
+    line-height: 12px;
+    color: var(--color-grey);
+    margin-bottom: 10px;
+  }
+
+  &__input {
+    width: 100%;
+    height: 46px;
+    background-color: #2F2F2F;
+    border-radius: 8px;
+    border: none;
+    box-sizing: border-box;
+    padding: 15px;
+    font-size: 13px;
+    line-height: 16px;
+    color: var(--color-white);
+    margin-bottom: 20px;
+
+    @media screen and (max-width: 767px) {
+      margin-bottom: 17px;
+    }
+  }
+
+  &__error {
+    margin: 0;
+    font-weight: 400;
+    font-size: 10px;
+    line-height: 12px;
+    color: var(--color-pink);
+    position: absolute;
+    top: 95%;
+
+    @media screen and (max-width: 767px) {}
+  }
+
+  &__btn {
+    @include reset-button;
+    width: 100%;
+    height: 45px;
+    border-radius: 3px;
+    background-color: var(--color-blue);
+    color: var(--color-white);
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 17px;
+    @include transition;
+
+    &:hover {
+      opacity: .7;
+    }
+  }
+
+  &__nav {
+    margin-top: 16px;
+    display: flex;
+    justify-content: center;
+    gap: 6px;
+  }
+
+  &__txt {
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 17px;
+    margin: 0;
+    color: var(--color-grey);
+  }
+
+  &__link {
+    @include reset-link;
+    color: var(--color-blue);
+    @include transition;
+
+    &:hover {
+      opacity: .7;
+    }
+  }
+}

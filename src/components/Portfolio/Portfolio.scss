@@ -1,0 +1,84 @@
+@import '../../utils/variables.scss';
+@import '../../utils/mixins.scss';
+
+.portfolio {
+  &__title {
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 20px;
+    margin: 0 0 50px;
+    color: var(--color-grey);
+
+    @media screen and (max-width: 767px) {
+      font-size: 14px;
+      line-height: 20px;
+      margin-bottom: 30px;
+    }
+  }
+
+  &__list {
+    @include reset-list;
+    width: 100%;
+  }
+
+  &__item {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding-bottom: 19px;
+    border-bottom: 1px solid #424242;
+    height: 50px;
+    width: 100%;
+    margin-bottom: 20px;
+
+    @media screen and (max-width: 767px) {
+      padding-bottom: 7px;
+      margin-bottom: 10px;
+    }
+
+    &:last-of-type {
+      border-bottom: none;
+    }
+  }
+
+  &__link {
+    @include reset-link;
+    margin: 0;
+    font-weight: 400;
+    font-size: 30px;
+    line-height: 50px;
+    letter-spacing: -0.04em;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    @include transition;
+
+    @media screen and (max-width: 1279px) {
+      font-size: 28px;
+    }
+
+    @media screen and (max-width: 767px) {
+      font-size: 18px;
+      line-height: 28px;
+    }
+
+    &:hover {
+      opacity: .6;
+    }
+
+    &::after {
+      content: '';
+      width: 30px;
+      height: 30px;
+      display: block;
+      background: url(../../images/link-arrow.svg) no-repeat center / 18px 20px;
+
+      @media screen and (max-width: 767px) {
+        background-size: 12px 14px;
+        width: 20px;
+        height: 20px;
+      }
+    }
+  }
+}

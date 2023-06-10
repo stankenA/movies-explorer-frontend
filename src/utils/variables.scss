@@ -1,0 +1,26 @@
+:root {
+  --content-width: 1140px;
+  --content-movies-width: 1140px;
+  --width-header-footer: 1140px;
+
+  --color-black: #000;
+  --color-light-black: #202020;
+  --color-white: #fff;
+  --color-green: #3DDC84;
+  --color-blue: #4285F4;
+  --color-pink: #EE3465;
+  --color-dark-blue: #073042;
+  --color-grey: #8B8B8B;
+
+  @media screen and (max-width: 1279px) {
+    --content-width: 87%;
+    --content-movies-width: 92%;
+    --width-header-footer: 92%;
+  }
+
+  @media screen and (max-width: 767px) {
+    --width-header-footer: 91%;
+    --content-width: 91%;
+    --content-movies-width: 91%;
+  }
+}

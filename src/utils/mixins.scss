@@ -1,0 +1,21 @@
+@mixin reset-link {
+  text-decoration: none;
+  color: inherit;
+}
+
+@mixin reset-button {
+  background-color: transparent;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+}
+
+@mixin reset-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+@mixin transition($time: .4s) {
+  transition: all $time ease;
+}

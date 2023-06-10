@@ -1,0 +1,48 @@
+@import '../../utils/mixins.scss';
+@import '../../utils/variables.scss';
+
+.header {
+  &_page {
+    &_main {
+      background-color: var(--color-dark-blue);
+    }
+
+    &_other {
+      background-color: transparent;
+    }
+  }
+
+  &__wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: var(--width-header-footer);
+    margin: 0 auto;
+    min-height: 74px;
+  }
+
+  &__link {
+    @include reset-link;
+    @include transition;
+    padding-bottom: 2px;
+
+    &:hover {
+      opacity: .8;
+    }
+
+    &_main {
+      display: none;
+
+      @media screen and (max-width: 767px) {
+        display: inline;
+        padding-bottom: 7px;
+      }
+    }
+
+    &_active {
+      @media screen and (max-width: 767px) {
+        border-bottom: 2px solid var(--color-white);
+      }
+    }
+  }
+}

@@ -1,0 +1,64 @@
+@import '../../../utils/variables.scss';
+@import '../../../utils/mixins.scss';
+
+.search {
+  &__filter {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 12px;
+    cursor: pointer;
+    max-width: 200px;
+    margin: 29px auto 0;
+
+    @media screen and (max-width: 1279px) {
+      margin-top: 40px;
+    }
+
+    @media screen and (max-width: 769px) {
+      margin-top: 46px;
+    }
+  }
+
+  &__checkbox-container {
+    @include transition;
+    width: 36px;
+    height: 20px;
+    background-color: #343434;
+    border-radius: 20px;
+    box-sizing: border-box;
+    padding: 2px;
+    display: flex;
+
+    &_checked {
+      background-color: var(--color-green);
+    }
+  }
+
+  &__checkmark {
+    @include transition;
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    background-color: #A0A0A0;
+
+    &_checked {
+      transform: translateX(100%);
+      background-color: var(--color-white);
+    }
+  }
+
+  &__txt {
+    font-size: 12px;
+    line-height: 18px;
+    margin: 0;
+
+    @media screen and (max-width: 769px) {
+      font-size: 11px;
+    }
+  }
+
+  &__checkbox {
+    display: none;
+  }
+}

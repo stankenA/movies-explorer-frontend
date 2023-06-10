@@ -1,0 +1,88 @@
+@import '../../utils/variables.scss';
+@import '../../utils/mixins.scss';
+
+.footer {
+  padding-top: 76px;
+  min-height: 172px;
+  box-sizing: border-box;
+
+  @media screen and (max-width: 1279px) {
+    padding-top: 61px;
+  }
+
+  @media screen and (max-width: 767px) {
+    padding-top: 79px;
+    padding-bottom: 20px;
+  }
+
+  &__wrapper {
+    width: var(--width-header-footer);
+    margin: 0 auto;
+  }
+
+  &__title {
+    font-weight: 400;
+    font-size: 13px;
+    line-height: 16px;
+    text-align: center;
+    color: var(--color-grey);
+    margin: 0 0 20px;
+
+    @media screen and (max-width: 767px) {
+      font-size: 12px;
+      line-height: 15px;
+    }
+  }
+
+  &__content {
+    padding-top: 20px;
+    border-top: 1px solid #424242;
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+
+    @media screen and (max-width: 767px) {
+      flex-direction: column;
+      align-items: center;
+      padding-top: 30px;
+      gap: 12px;
+    }
+  }
+
+  &__txt {
+    font-weight: 400;
+    font-size: 13px;
+    line-height: 16px;
+    margin: 0;
+
+    @media screen and (max-width: 767px) {
+      font-size: 12px;
+      line-height: 15px;
+    }
+
+    @media screen and (max-width: 767px) {
+      &_year {
+        color: var(--color-grey);
+        order: 2;
+        margin-top: 18px;
+      }
+    }
+  }
+
+  &__link {
+    @include reset-link;
+    @include transition;
+
+    &:hover {
+      opacity: .6;
+    }
+
+    &:first-of-type {
+      margin-left: auto;
+
+      @media screen and (max-width: 767px) {
+        margin-left: unset;
+      }
+    }
+  }
+}

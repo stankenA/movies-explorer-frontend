@@ -1,0 +1,63 @@
+@import '../../utils/variables.scss';
+@import '../../utils/mixins.scss';
+
+.movies {
+  &__wrapper {
+    width: var(--content-movies-width);
+    margin: 0 auto;
+    padding-top: 70px;
+    padding-bottom: 80px;
+
+    @media screen and (max-width: 1279px) {
+      padding-bottom: 99px;
+    }
+
+    @media screen and (max-width: 769px) {
+      padding-top: 38px;
+      padding-bottom: 80px;
+    }
+  }
+
+  &__list {
+    @include reset-list;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-auto-rows: 271px;
+    column-gap: 24px;
+    row-gap: 30px;
+    margin-bottom: 80px;
+
+    @media screen and (max-width: 1279px) {
+      grid-template-columns: repeat(2, 1fr);
+      column-gap: 30px;
+      row-gap: 23px;
+      margin-bottom: 66px;
+    }
+
+    @media screen and (max-width: 769px) {
+      grid-template-columns: 1fr;
+      grid-auto-rows: 236px;
+      row-gap: 16px;
+      margin-bottom: 84px;
+    }
+  }
+
+  &__more {
+    @include reset-button;
+    width: 100%;
+    height: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #2F2F2F;
+    border-radius: 6px;
+    font-size: 12px;
+    line-height: 15px;
+    color: var(--color-white);
+    @include transition;
+
+    &:hover {
+      opacity: .7;
+    }
+  }
+}

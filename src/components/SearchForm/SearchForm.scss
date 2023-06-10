@@ -1,0 +1,60 @@
+@import '../../utils/variables.scss';
+@import '../../utils/mixins.scss';
+
+.search {
+  &__wrapper {
+    width: var(--content-movies-width);
+    margin: 80px auto 10px;
+    padding-bottom: 40px;
+    border-bottom: 1px solid #424242;
+  }
+
+  &__container {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  &__input {
+    flex-grow: 1;
+    height: 50px;
+    padding: 16px 20px;
+    box-sizing: border-box;
+    background-color: #2F2F2F;
+    border-radius: 8px;
+    border: none;
+    font-size: 14px;
+    line-height: 18px;
+    color: var(--color-white);
+
+    @media screen and (max-width: 769px) {
+      height: 44px;
+      padding: 13px;
+    }
+  }
+
+  &__submit {
+    @include reset-button;
+    width: 44px;
+    height: 44px;
+    background-color: var(--color-blue);
+    border-radius: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    @include transition;
+
+    &:hover {
+      opacity: .7;
+    }
+  }
+
+  &__submit-arrow {
+    width: 30px;
+    height: 30px;
+    display: block;
+    background: url(../../images/arrow-submit.svg) no-repeat center / 12px 14px;
+    border-left: 1px solid var(--color-white);
+  }
+}

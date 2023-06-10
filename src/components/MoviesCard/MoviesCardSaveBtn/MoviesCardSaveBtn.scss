@@ -1,0 +1,41 @@
+@import '../../../utils/variables.scss';
+@import '../../../utils/mixins.scss';
+
+.movies {
+  &__save {
+    @include reset-button;
+    width: 30px;
+    height: 30px;
+    box-sizing: border-box;
+    border: 1px solid transparent;
+    border-radius: 50%;
+    background-color: #313131;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    @include transition;
+
+    &:hover {
+      border-color: var(--color-white);
+
+      .movies__flag {
+        opacity: 1;
+      }
+    }
+
+    &_checked {
+      background-color: var(--color-green);
+
+      .movies__flag {
+        opacity: 1;
+      }
+    }
+  }
+
+  &__flag {
+    width: 10px;
+    height: 14px;
+    opacity: .2;
+    @include transition;
+  }
+}

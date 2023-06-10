@@ -1,0 +1,65 @@
+@import '../../../utils/mixins.scss';
+@import '../../../utils/variables.scss';
+
+.header {
+  &__auth {
+    display: flex;
+    align-items: center;
+    gap: 30px;
+
+    @media screen and (max-width: 767px) {
+      gap: 14px;
+    }
+  }
+
+  &__signup {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    @include reset-link;
+    color: var(--color-white);
+    @include transition;
+    font-size: 12px;
+    line-height: 16px;
+
+    @media screen and (max-width: 767px) {
+      font-size: 10px;
+      line-height: 16px;
+    }
+
+    @media screen and (max-width: 767px) {
+      font-size: 10px;
+      line-height: 16px;
+    }
+
+    &:hover {
+      opacity: .8;
+    }
+  }
+
+  &__signin {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    @include reset-link;
+    color: var(--color-black);
+    width: 76px;
+    height: 32px;
+    border-radius: 3px;
+    background-color: var(--color-green);
+    @include transition;
+    font-size: 12px;
+    line-height: 16px;
+
+    @media screen and (max-width: 767px) {
+      width: 54px;
+      height: 26px;
+      font-size: 10px;
+      line-height: 16px;
+    }
+
+    &:hover {
+      opacity: .8;
+    }
+  }
+}
