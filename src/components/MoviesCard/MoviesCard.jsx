@@ -1,5 +1,5 @@
 import React from 'react';
-import { useLocation } from 'react-router-dom';
+import { useLocation, Link } from 'react-router-dom';
 
 import './MoviesCard.scss';
 import MoviesCardSaveBtn from './MoviesCardSaveBtn/MoviesCardSaveBtn';
@@ -9,6 +9,10 @@ export default function MoviesCard({ title, length, thumbnail }) {
 
   const location = useLocation();
   const isSavedMoviesPage = location.pathname === '/saved-movies';
+
+  function onClick() {
+    console.log('boop');
+  }
 
   return (
     <li className="movies__card">
@@ -22,10 +26,12 @@ export default function MoviesCard({ title, length, thumbnail }) {
           </p>
         </div>
         {isSavedMoviesPage
-          ? <MoviesCardDeleteBtn />
-          : <MoviesCardSaveBtn />}
+          ? <MoviesCardDeleteBtn onClick={onClick} />
+          : <MoviesCardSaveBtn onClick={onClick} />}
       </div>
-      <img src={thumbnail} alt={`Превью фильма ${title}`} className="movies__img" />
+      <Link to='/' className="movies__link">
+        <img src={thumbnail} alt={`Превью фильма ${title}`} className="movies__img" />
+      </Link>
     </li>
   )
 }

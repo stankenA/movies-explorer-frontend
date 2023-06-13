@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 
 import './MoviesCardSaveBtn.scss';
 
-export default function MoviesCardSaveBtn() {
+export default function MoviesCardSaveBtn({ onClick }) {
 
   const [isSaved, setIsSaved] = useState(false);
 
@@ -10,7 +10,10 @@ export default function MoviesCardSaveBtn() {
     <button
       type="button"
       className={`movies__save ${isSaved ? 'movies__save_checked' : ''}`}
-      onClick={() => setIsSaved(!isSaved)}
+      onClick={() => {
+        setIsSaved(!isSaved)
+        onClick();
+      }}
     >
       <svg
         className="movies__flag"

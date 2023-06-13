@@ -21,7 +21,7 @@ function App() {
     || location.pathname === '/movies'
     || location.pathname === '/saved-movies'
     || location.pathname === '/profile';
-  const isNotProfilePage = location.pathname === '/profile';
+  const isProfilePage = location.pathname === '/profile';
 
   return (
     <div className="page">
@@ -37,7 +37,7 @@ function App() {
           <Route path='*' element={<NotFound />} />
         </Routes>
       </main>
-      {isContextPages && !isNotProfilePage && <Footer />}
+      {isContextPages && !isProfilePage && <Footer />}
     </div>
   );
 }

@@ -8,6 +8,17 @@
     background-color: #222222;
   }
 
+  &__link {
+    @include reset-link;
+    display: block;
+    height: 190px;
+    width: 100%;
+
+    @media screen and (max-width: 769px) {
+      height: 168px;
+    }
+  }
+
   &__card-top {
     width: 100%;
     padding: 14px;
@@ -37,11 +48,7 @@
   &__img {
     display: block;
     width: 100%;
-    height: 190px;
+    height: 100%;
     object-fit: cover;
-
-    @media screen and (max-width: 769px) {
-      height: 168px;
-    }
   }
 }
