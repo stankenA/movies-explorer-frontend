@@ -5,27 +5,24 @@ import SearchFilter from './SearchFilter/SearchFilter';
 
 import errorIcon from '../../images/error-icon.svg';
 
-export default function SearchForm({ searchValue }) {
+export default function SearchForm({ handleChange, handleSubmit }) {
 
-  const [isErrorOpened, setIsErrorOpened] = useState(false);
-  const [inputValue, setSearchValue] = useState('');
-
-  function checkSearchValue() {
-    if (inputValue === '') {
-      setIsErrorOpened(true);
-    } else {
-      setIsErrorOpened(false);
-    }
-  }
+  const [isErrored, setIsErrored] = useState(false);
+  const [searchValue, setSearchValue] = useState('');
 
   function changeSearchValue(evt) {
-    setIsErrorOpened(false);
     setSearchValue(evt.target.value);
+    handleChange(evt);
+    setIsErrored(false);
   }
 
   function submitSearch(evt) {
-    evt.preventDefault();
-    checkSearchValue();
+    if (searchValue === '') {
+      setIsErrored(true);
+      return;
+    } else {
+      handleSubmit(evt);
+    }
   }
 
   return (
@@ -38,18 +35,19 @@ export default function SearchForm({ searchValue }) {
         <div className="search__container">
           <input
             type="text"
+            name="search"
             className="search__input"
             placeholder="Фильмы"
             required=''
-            value={inputValue}
+            value={searchValue}
             onChange={changeSearchValue}
           />
           <button type="submit" className="search__submit">
             <span className="search__submit-arrow"></span>
           </button>
           <div
-            className={`search__error ${isErrorOpened ? 'search__error_opened' : ''}`}
-            onClick={() => setIsErrorOpened(false)}
+            className={`search__error ${isErrored ? 'search__error_opened' : ''}`}
+            onClick={() => setIsErrored(false)}
           >
             <img src={errorIcon} alt="Иконка ошибки" className="search__error-icon" />
             <p className="search__error-txt">

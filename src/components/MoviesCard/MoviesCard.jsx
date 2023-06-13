@@ -5,7 +5,7 @@ import './MoviesCard.scss';
 import MoviesCardSaveBtn from './MoviesCardSaveBtn/MoviesCardSaveBtn';
 import MoviesCardDeleteBtn from './MoviesCardDeleteBtn/MoviesCardDeleteBtn';
 
-export default function MoviesCard({ title, length, thumbnail }) {
+export default function MoviesCard({ title, duration, thumbnail, trailerLink }) {
 
   const location = useLocation();
   const isSavedMoviesPage = location.pathname === '/saved-movies';
@@ -22,14 +22,14 @@ export default function MoviesCard({ title, length, thumbnail }) {
             {title}
           </h2>
           <p className="movies__length">
-            {length}
+            {`${Math.floor(duration / 60)} ч ${duration % 60} мин`}
           </p>
         </div>
         {isSavedMoviesPage
           ? <MoviesCardDeleteBtn onClick={onClick} />
           : <MoviesCardSaveBtn onClick={onClick} />}
       </div>
-      <Link to='/' className="movies__link">
+      <Link to={trailerLink} className="movies__link" target="_blank">
         <img src={thumbnail} alt={`Превью фильма ${title}`} className="movies__img" />
       </Link>
     </li>
