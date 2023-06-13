@@ -55,7 +55,9 @@ export default function SearchForm({ handleChange, handleSubmit }) {
             </p>
           </div>
         </div>
-        <SearchFilter />
+        <SearchFilter
+          handleChange={handleChange}
+        />
       </form>
     </section>
   )

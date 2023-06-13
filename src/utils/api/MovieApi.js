@@ -28,4 +28,4 @@ export const moviesApi = new Api({
   headers: {
     'Content-Type': 'application/json',
   }
-})
+});
