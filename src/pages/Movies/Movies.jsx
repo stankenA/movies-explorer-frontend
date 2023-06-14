@@ -26,6 +26,11 @@ export default function Movies() {
 
     try {
       const response = await moviesApi.getInitialMovies();
+
+      if (response.length === 0) {
+        setPlaceholder('Ничего не найдено');
+      }
+
       setMovies(response);
     } catch (error) {
       setPlaceholder('Во время запроса произошла ошибка. Возможно, проблема с соединением или сервер недоступен. Подождите немного и попробуйте ещё раз')
@@ -42,8 +47,6 @@ export default function Movies() {
     localStorage.setItem('movies', movies);
     localStorage.setItem('isShortsChecked', values.shortsCheckbox);
   }
-
-  console.log(isLoading);
 
   return (
     <>
