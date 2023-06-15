@@ -8,6 +8,7 @@ export const useResize = () => {
       setWidth(evt.target.innerWidth);
     };
 
+    // Дебаунсим, чтобы слишком часто не срабатывал
     let timeout;
 
     window.addEventListener('resize', (evt) => {

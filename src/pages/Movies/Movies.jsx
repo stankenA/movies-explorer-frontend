@@ -42,10 +42,6 @@ export default function Movies() {
   function handleSubmit(evt) {
     evt.preventDefault();
     fetchMovies();
-
-    localStorage.setItem('search', values.search);
-    localStorage.setItem('movies', movies);
-    localStorage.setItem('isShortsChecked', values.shortsCheckbox);
   }
 
   return (
@@ -65,6 +61,8 @@ export default function Movies() {
           :
           <MoviesCardList
             moviesArr={movies}
+            searchValue={values.search}
+            isShorts={values.shortsCheckbox}
           />
       }
     </>

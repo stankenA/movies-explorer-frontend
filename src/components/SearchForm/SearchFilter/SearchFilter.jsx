@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 import './SearchFilter.scss';
 
@@ -6,8 +6,17 @@ export default function SearchFilter({ handleChange }) {
 
   const [isShortsChecked, setIsShortsChecked] = useState(false);
 
+  useEffect(() => {
+    const savedCheckbox = localStorage.getItem('isShortsChecked');
+
+    if (savedCheckbox === 'true') {
+      setIsShortsChecked(true);
+    }
+  }, [])
+
   function changeShortsCheckbox(evt) {
-    setIsShortsChecked(evt.target.checked)
+    setIsShortsChecked(evt.target.checked);
+    localStorage.setItem('isShortsChecked', evt.target.checked);
     handleChange(evt);
   }
 

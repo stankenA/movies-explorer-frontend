@@ -3,8 +3,9 @@ import MoviesCard from '../MoviesCard/MoviesCard';
 
 import './MoviesCardList.scss';
 import { useResize } from '../../hooks/useResize';
+import { filterMovies } from '../../utils/filter';
 
-export default function MoviesCardList({ moviesArr }) {
+export default function MoviesCardList({ moviesArr, searchValue, isShorts }) {
 
   const [visibleArr, setVisibleArr] = useState([]);
   const [visibleMoviesNumber, setVisibleMoviesNumber] = useState(0);
@@ -12,6 +13,14 @@ export default function MoviesCardList({ moviesArr }) {
   const [moreMoviesNumber, setMoreMoviesNumber] = useState(0);
   const [isMoreBtnVisible, setIsMoreBtnVisible] = useState(false);
   const { isMobile, isTablet, isDesktop } = useResize();
+
+  useEffect(() => {
+    const savedMovies = localStorage.getItem('movies');
+
+    if (savedMovies) {
+      setVisibleArr(JSON.parse(savedMovies));
+    }
+  }, []);
 
   useEffect(() => {
     if (isDesktop) {
@@ -27,11 +36,19 @@ export default function MoviesCardList({ moviesArr }) {
   }, [isDesktop, isTablet, isMobile]);
 
   useEffect(() => {
-    setVisibleArr([...moviesArr].splice(0, visibleMoviesNumber));
+    // Отфильтровываем фильмы
+    const filteredMovies = filterMovies(moviesArr, searchValue, isShorts);
 
-    if (moviesArr.length / visibleArr.length === 1) {
+    // Сохраняем их в локальном хранилище
+    localStorage.setItem('movies', JSON.stringify(filteredMovies));
+
+    // Отрисовываем их на клиенте
+    setVisibleArr([...filteredMovies].splice(0, visibleMoviesNumber));
+
+    // Меняем стейт кнопки "Ещё"
+    if (filteredMovies.length / visibleArr.length === 1) {
       setIsMoreBtnVisible(false);
-    } else if (moviesArr.length > 3) {
+    } else if (filteredMovies.length > 3) {
       setIsMoreBtnVisible(true);
     }
 

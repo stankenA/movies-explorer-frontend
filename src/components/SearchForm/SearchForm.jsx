@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 import './SearchForm.scss';
 import SearchFilter from './SearchFilter/SearchFilter';
@@ -9,6 +9,15 @@ export default function SearchForm({ handleChange, handleSubmit }) {
 
   const [isErrored, setIsErrored] = useState(false);
   const [searchValue, setSearchValue] = useState('');
+
+  useEffect(() => {
+    const savedSearch = localStorage.getItem('search');
+
+    if (savedSearch) {
+      setSearchValue(savedSearch)
+    };
+
+  }, []);
 
   function changeSearchValue(evt) {
     setSearchValue(evt.target.value);
@@ -21,6 +30,7 @@ export default function SearchForm({ handleChange, handleSubmit }) {
       setIsErrored(true);
       return;
     } else {
+      localStorage.setItem('search', searchValue);
       handleSubmit(evt);
     }
   }
