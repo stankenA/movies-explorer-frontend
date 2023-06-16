@@ -2,9 +2,9 @@ import React, { useEffect, useState } from 'react';
 import SearchForm from '../../components/SearchForm/SearchForm';
 import MoviesCardList from '../../components/MoviesCardList/MoviesCardList';
 import Preloader from '../../components/Preloader/Preloader';
+import Placeholder from '../../components/Placeholder/Placeholder';
 import { useForm } from '../../hooks/useForm';
 import { moviesApi } from '../../utils/api/MovieApi';
-import Placeholder from '../../components/Placeholder/Placeholder';
 
 export default function Movies() {
 

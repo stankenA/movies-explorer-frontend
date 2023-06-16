@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Routes, Route, useLocation } from 'react-router-dom';
 import '../../vendor/normalize.css';
 import '../../vendor/fonts/fonts.css';
@@ -16,6 +16,8 @@ import NotFound from '../../pages/NotFound/NotFound';
 
 function App() {
 
+  const [loggedIn, setLoggedIn] = useState(true);
+
   const location = useLocation();
   const isContextPages = location.pathname === '/'
     || location.pathname === '/movies'
@@ -23,15 +25,19 @@ function App() {
     || location.pathname === '/profile';
   const isProfilePage = location.pathname === '/profile';
 
+  function handleLogOut() {
+    setLoggedIn(false);
+  }
+
   return (
     <div className="page">
-      {isContextPages && <Header />}
+      {isContextPages && <Header loggedIn={loggedIn} />}
       <main className="content">
         <Routes>
           <Route path='/' element={<Main />} />
           <Route path='/movies' element={<Movies />} />
           <Route path='/saved-movies' element={<SavedMovies />} />
-          <Route path='/profile' element={<Profile />} />
+          <Route path='/profile' element={<Profile handleLogOut={handleLogOut} />} />
           <Route path='/sign-up' element={<Registration />} />
           <Route path='/sign-in' element={<Login />} />
           <Route path='*' element={<NotFound />} />
