@@ -1,11 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import SearchForm from '../../components/SearchForm/SearchForm';
 import MoviesCardList from '../../components/MoviesCardList/MoviesCardList';
+import Preloader from '../../components/Preloader/Preloader';
 import { useForm } from '../../hooks/useForm';
 import { moviesApi } from '../../utils/api/MovieApi';
-
-import './Movies.scss';
-import Preloader from '../../components/Preloader/Preloader';
+import Placeholder from '../../components/Placeholder/Placeholder';
 
 export default function Movies() {
 
@@ -38,8 +37,8 @@ export default function Movies() {
     }
 
     if (savedMovies) {
-      fetchMovies();
       setPlaceholder({ isShown: false, message: '' });
+      fetchMovies();
     }
   }, []);
 
@@ -78,9 +77,9 @@ export default function Movies() {
       {
         placeholder.isShown
           ?
-          <p className="movies-placeholder">
+          <Placeholder>
             {placeholder.message}
-          </p>
+          </Placeholder>
           : isLoading
             ? <Preloader />
             :
