@@ -35,7 +35,7 @@
     }
 
     @media screen and (max-width: 767px) {
-      grid-template-columns: 1fr;
+      grid-template-columns: 100%;
       grid-auto-rows: 236px;
       row-gap: 16px;
       margin-bottom: 84px;

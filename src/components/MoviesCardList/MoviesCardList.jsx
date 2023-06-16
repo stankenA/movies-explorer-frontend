@@ -5,7 +5,7 @@ import './MoviesCardList.scss';
 import { useResize } from '../../hooks/useResize';
 import { filterMovies } from '../../utils/filter';
 
-export default function MoviesCardList({ moviesArr, searchValue, isShorts }) {
+export default function MoviesCardList({ moviesArr, searchValue, isShorts, showPlaceholder }) {
 
   const [visibleArr, setVisibleArr] = useState([]);
   const [visibleMoviesNumber, setVisibleMoviesNumber] = useState(0);
@@ -39,6 +39,11 @@ export default function MoviesCardList({ moviesArr, searchValue, isShorts }) {
     // Отфильтровываем фильмы
     const filteredMovies = filterMovies(moviesArr, searchValue, isShorts);
 
+    if (filteredMovies.length === 0) {
+      showPlaceholder('Ничего не найдено');
+      return;
+    }
+
     // Сохраняем их в локальном хранилище
     localStorage.setItem('movies', JSON.stringify(filteredMovies));
 
@@ -52,7 +57,7 @@ export default function MoviesCardList({ moviesArr, searchValue, isShorts }) {
       setIsMoreBtnVisible(true);
     }
 
-  }, [moviesArr, visibleArr.length, visibleMoviesNumber]);
+  }, [moviesArr, visibleArr.length, visibleMoviesNumber, isShorts]);
 
   return (
     <section className="movies">

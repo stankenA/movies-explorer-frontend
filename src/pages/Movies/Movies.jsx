@@ -9,7 +9,11 @@ import Preloader from '../../components/Preloader/Preloader';
 
 export default function Movies() {
 
-  const [placeholder, setPlaceholder] = useState('Наливайте чай, доставайте печеньки и ищите фильм!');
+  // Плейсхолдер для сообщений пользователю
+  const [placeholder, setPlaceholder] = useState({
+    isShown: true,
+    message: 'Наливайте чай, доставайте печеньки и ищите фильм!'
+  });
   const [isLoading, setIsLoading] = useState(false);
 
   const [movies, setMovies] = useState([]);
@@ -20,20 +24,36 @@ export default function Movies() {
     shortsCheckbox: false,
   });
 
+  useEffect(() => {
+    const savedSearch = localStorage.getItem('search');
+    const savedCheckbox = localStorage.getItem('isShortsChecked');
+    const savedMovies = localStorage.getItem('movies');
+
+    if (savedSearch) {
+      setValues({ search: savedSearch, shortsCheckbox: values.shortsCheckbox });
+    }
+
+    if (savedCheckbox) {
+      savedCheckbox === 'true' ? values.shortsCheckbox = true : values.shortsCheckbox = false;
+    }
+
+    if (savedMovies) {
+      fetchMovies();
+      setPlaceholder({ isShown: false, message: '' });
+    }
+  }, []);
 
   async function fetchMovies() {
     setIsLoading(true);
 
     try {
       const response = await moviesApi.getInitialMovies();
-
-      if (response.length === 0) {
-        setPlaceholder('Ничего не найдено');
-      }
-
       setMovies(response);
     } catch (error) {
-      setPlaceholder('Во время запроса произошла ошибка. Возможно, проблема с соединением или сервер недоступен. Подождите немного и попробуйте ещё раз')
+      setPlaceholder({
+        isShown: true,
+        message: 'Во время запроса произошла ошибка. Возможно, проблема с соединением или сервер недоступен. Подождите немного и попробуйте ещё раз'
+      })
     } finally {
       setIsLoading(false);
     }
@@ -42,6 +62,11 @@ export default function Movies() {
   function handleSubmit(evt) {
     evt.preventDefault();
     fetchMovies();
+    setPlaceholder({ isShown: false, message: '' })
+  }
+
+  function showPlaceholder(message) {
+    setPlaceholder({ isShown: true, message });
   }
 
   return (
@@ -50,20 +75,21 @@ export default function Movies() {
         handleChange={handleChange}
         handleSubmit={handleSubmit}
       />
-      {(movies.length === 0 && isLoading === false)
-        ?
-        <p className="movies-placeholder">
-          {placeholder}
-        </p>
-        : (movies.length === 0 && isLoading === true)
+      {
+        placeholder.isShown
           ?
-          <Preloader />
-          :
-          <MoviesCardList
-            moviesArr={movies}
-            searchValue={values.search}
-            isShorts={values.shortsCheckbox}
-          />
+          <p className="movies-placeholder">
+            {placeholder.message}
+          </p>
+          : isLoading
+            ? <Preloader />
+            :
+            <MoviesCardList
+              moviesArr={movies}
+              searchValue={values.search}
+              isShorts={values.shortsCheckbox}
+              showPlaceholder={showPlaceholder}
+            />
       }
     </>
   )

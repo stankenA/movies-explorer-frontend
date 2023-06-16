@@ -14,7 +14,7 @@ export default function SearchForm({ handleChange, handleSubmit }) {
     const savedSearch = localStorage.getItem('search');
 
     if (savedSearch) {
-      setSearchValue(savedSearch)
+      setSearchValue(savedSearch);
     };
 
   }, []);
