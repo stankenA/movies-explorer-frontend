@@ -1,12 +1,14 @@
-import React from 'react'
+import React, { useState } from 'react'
 import SignForm from '../../components/SignForm/SignForm'
 import { useFormWithValidation } from '../../hooks/useFormWithValidation';
+import Popup from '../../components/Popup/Popup';
 
 export default function Login({ handleLogin }) {
 
-  const { values, handleChange, errors, isValid, setValues, resetForm } = useFormWithValidation();
+  const [isPopupOpened, setIsPopupOpened] = useState(false);
+  const [popupMessage, setPopupMessage] = useState('');
 
-  console.log(values, isValid);
+  const { values, handleChange, errors, isValid, setValues, resetForm } = useFormWithValidation();
 
   function handleSubmit(evt) {
     evt.preventDefault();
@@ -14,6 +16,24 @@ export default function Login({ handleLogin }) {
       return;
     }
     handleLogin(values.password, values.email);
+  }
+
+  function handlePopupOpen() {
+    setIsPopupOpened(true);
+  }
+
+  function handlePopupClose() {
+    setIsPopupOpened(false);
+  }
+
+  function handleBgClose(evt) {
+    if (evt.target.classList.contains('popup_opened')) {
+      setIsPopupOpened(false);
+    }
+  }
+
+  function changePopupMessage(message) {
+    setPopupMessage(message);
   }
 
   return (
@@ -24,6 +44,12 @@ export default function Login({ handleLogin }) {
         handleSubmit={handleSubmit}
         errors={errors}
         isValid={isValid}
+      />
+      <Popup
+        isPoupOpened={isPopupOpened}
+        onClose={handlePopupClose}
+        onBgClose={handleBgClose}
+        popupMessage={popupMessage}
       />
     </>
   )

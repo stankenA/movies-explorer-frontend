@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import './SignForm.scss';
 import logo from '../../images/logo.svg';
 
-export default function SignForm({ isRegistration, handleChange, errors, isValid }) {
+export default function SignForm({ isRegistration, handleChange, errors, isValid, onSubmit }) {
 
   const [nameValue, setNameValue] = useState('');
   const [emailValue, setEmailValue] = useState('');
@@ -34,7 +34,7 @@ export default function SignForm({ isRegistration, handleChange, errors, isValid
         <h1 className="sign__title">
           {isRegistration ? 'Добро пожаловать!' : 'Рады видеть!'}
         </h1>
-        <form className="sign__form">
+        <form className="sign__form" onSubmit={onSubmit}>
           <fieldset className="sign__fieldset">
             {isRegistration &&
               <div className="sign__row">
