@@ -11,10 +11,12 @@ export default function Profile({ handleLogout }) {
   const [isEditing, setIsEditing] = useState(false);
   const [nameValue, setNameValue] = useState(currentUser.name);
   const [emailValue, setEmailValue] = useState(currentUser.email);
+  const [submitError, setSubmitError] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
 
   const { values, handleChange, errors, isValid, setValues, resetForm } = useFormWithValidation();
 
-  console.log(values)
+  console.log(values);
 
   function handleNameChange(evt) {
     setNameValue(evt.target.value);
@@ -35,7 +37,7 @@ export default function Profile({ handleLogout }) {
     <section className="profile">
       <div className="profile__wrapper">
         <h2 className="profile__title">
-          Привет, Виталий!
+          Привет, {currentUser.name}!
         </h2>
         <form id="profile" className="profile__form">
           <div className="profile__row">
@@ -44,13 +46,18 @@ export default function Profile({ handleLogout }) {
               id="name"
               name="name"
               type="text"
-              className="profile__input profile__txt"
+              className={`profile__input profile__txt ${errors.name ? 'profile__input_errored' : ''}`}
               placeholder="Введите ваше имя"
               value={nameValue}
               onChange={handleNameChange}
               disabled={!isEditing}
+              minLength={2}
+              maxLength={30}
               required
             />
+            <span className={`profile__error ${isValid ? '' : 'profile__error_active'}`}>
+              {errors.name}
+            </span>
           </div>
           <span className="profile__line"></span>
           <div className="profile__row">
@@ -59,24 +66,30 @@ export default function Profile({ handleLogout }) {
               id="email"
               name="email"
               type="email"
-              className="profile__input profile__txt"
+              className={`profile__input profile__txt ${errors.mail ? 'profile__input_errored' : ''}`}
               placeholder="Введите ваш e-mail"
               value={emailValue}
               onChange={handleEmailChange}
               disabled={!isEditing}
               required
             />
+            <span className={`profile__error ${isValid ? '' : 'profile__error_active'}`}>
+              {errors.email}
+            </span>
           </div>
         </form>
         {isEditing
           ? <div className="profile__editing">
-            <p className="profile__error">При обновлении профиля произошла ошибка.</p>
+            <p className="profile__error-submit">
+              {submitError}
+            </p>
             <button
               form="profile"
               type="submit"
-              className="profile__save"
+              className={`profile__save ${isValid ? 'profile__save_active' : ''}`}
               onClick={saveNewInfo}
-            >Сохранить
+            >
+              {isLoading ? 'Сохранение...' : 'Сохранить'}
             </button>
           </div>
           : <div className="profile__container">

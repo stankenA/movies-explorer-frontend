@@ -47,6 +47,8 @@ export default function SignForm({ isRegistration, handleChange, errors, isValid
                   required
                   value={nameValue}
                   onChange={handleNameChange}
+                  minLength={2}
+                  maxLength={30}
                 />
                 <span className={`sign__error ${isValid ? '' : 'sign__error_active'}`}>
                   {errors.name}

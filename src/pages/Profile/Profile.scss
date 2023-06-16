@@ -53,6 +53,25 @@
   &__row {
     display: flex;
     justify-content: space-between;
+    position: relative;
+  }
+
+  &__error {
+    width: 100%;
+    text-align: right;
+    position: absolute;
+    top: 110%;
+    right: 0;
+    font-size: 11px;
+    line-height: 13px;
+    color: var(--color-pink);
+    opacity: 0;
+    visibility: hidden;
+
+    &_active {
+      opacity: 1;
+      visibility: visible;
+    }
   }
 
   &__txt {
@@ -71,6 +90,10 @@
     border: none;
     background: transparent;
     text-align: end;
+
+    &_errored {
+      color: var(--color-pink);
+    }
   }
 
   &__line {
@@ -125,7 +148,7 @@
     position: relative;
   }
 
-  &__error {
+  &__error-submit {
     position: absolute;
     width: 100%;
     text-align: center;
@@ -143,11 +166,20 @@
     width: 100%;
     height: 45px;
     border-radius: 3px;
-    background-color: var(--color-blue);
-    color: var(--color-white);
     font-size: 14px;
     line-height: 17px;
     @include transition;
+    background-color: #313131;
+    color: var(--color-grey);
+    user-select: none;
+    pointer-events: none;
+
+    &_active {
+      background-color: var(--color-blue);
+      color: var(--color-white);
+      user-select: all;
+      pointer-events: all;
+    }
 
     &:hover {
       opacity: .7;

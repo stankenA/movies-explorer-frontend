@@ -26,9 +26,11 @@ export default function Login({ handleLogin }) {
     try {
       const response = await auth.authorize(password, email);
       if (response.jwt) {
+        setIsSuccessfull(true);
         handleLogin();
       }
     } catch (err) {
+      setIsSuccessfull(true);
       setPopupMessage('Вы ввели неправильный логин или пароль.');
     } finally {
       setIsPopupOpened(true);
