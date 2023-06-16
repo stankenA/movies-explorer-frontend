@@ -4,7 +4,7 @@ import { useFormWithValidation } from '../../hooks/useFormWithValidation';
 import Popup from '../../components/Popup/Popup';
 import * as auth from '../../utils/auth.js';
 
-export default function Registration() {
+export default function Registration({ handleLogin }) {
 
   const [isPopupOpened, setIsPopupOpened] = useState(false);
   const [popupMessage, setPopupMessage] = useState('');
@@ -18,6 +18,7 @@ export default function Registration() {
       if (response) {
         setIsSuccessfull(true);
         setPopupMessage('Вы успешно зарегистрировались!');
+        handleLogin();
       }
     } catch (err) {
       setIsSuccessfull(false);

@@ -1,11 +1,8 @@
 import React, { useState } from 'react';
 
 import './Profile.scss';
-import { useNavigate } from 'react-router-dom';
 
-export default function Profile({ handleLogOut }) {
-
-  const navigate = useNavigate();
+export default function Profile({ handleLogout }) {
 
   const [isEditing, setIsEditing] = useState(false);
   const [nameValue, setNameValue] = useState('Виталий');
@@ -15,12 +12,6 @@ export default function Profile({ handleLogOut }) {
     evt.preventDefault();
     setIsEditing(false);
   }
-
-  function logout() {
-    handleLogOut();
-    navigate('/sign-in', { replace: true })
-  }
-
   return (
     <section className="profile">
       <div className="profile__wrapper">
@@ -79,7 +70,7 @@ export default function Profile({ handleLogOut }) {
             <button
               type="button"
               className="profile__signout"
-              onClick={logout}
+              onClick={handleLogout}
             >Выйти из аккаунта
             </button>
           </div>}

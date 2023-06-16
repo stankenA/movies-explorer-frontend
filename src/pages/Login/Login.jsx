@@ -8,20 +8,9 @@ export default function Login({ handleLogin }) {
 
   const [isPopupOpened, setIsPopupOpened] = useState(false);
   const [popupMessage, setPopupMessage] = useState('');
+  const [isSuccessfull, setIsSuccessfull] = useState(false);
 
   const { values, handleChange, errors, isValid, setValues, resetForm } = useFormWithValidation();
-
-  function handleSubmit(evt) {
-    evt.preventDefault();
-    if (!values.password || !values.email) {
-      return;
-    }
-    handleLogin(values.password, values.email);
-  }
-
-  function handlePopupOpen() {
-    setIsPopupOpened(true);
-  }
 
   function handlePopupClose() {
     setIsPopupOpened(false);
@@ -33,18 +22,26 @@ export default function Login({ handleLogin }) {
     }
   }
 
-  async function handleRegistration(password, email) {
+  async function login(password, email) {
     try {
-      const response = await auth.register(password, email);
-      if (response) {
-        setPopupMessage('Вы успешно зарегистрировались!');
+      const response = await auth.authorize(password, email);
+      if (response.jwt) {
+        handleLogin();
       }
     } catch (err) {
-      console.log(err);
-      setPopupMessage('При регистрации пользователя произошла ошибка');
+      setPopupMessage('Вы ввели неправильный логин или пароль.');
     } finally {
       setIsPopupOpened(true);
     }
+  }
+
+  function handleSubmit(evt) {
+    evt.preventDefault();
+    if (!values.password || !values.email) {
+      return;
+    }
+
+    login(values.password, values.email);
   }
 
   return (
@@ -52,9 +49,16 @@ export default function Login({ handleLogin }) {
       <SignForm
         isRegistration={false}
         handleChange={handleChange}
-        handleSubmit={handleSubmit}
+        onSubmit={handleSubmit}
         errors={errors}
         isValid={isValid}
+      />
+      <Popup
+        isPoupOpened={isPopupOpened}
+        onClose={handlePopupClose}
+        onBgClose={handleBgClose}
+        popupMessage={popupMessage}
+        isSuccessfull={isSuccessfull}
       />
     </>
   )
