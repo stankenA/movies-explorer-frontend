@@ -14,10 +14,13 @@ import Login from '../../pages/Login/Login';
 import Footer from '../Footer/Footer';
 import NotFound from '../../pages/NotFound/NotFound';
 import * as auth from '../../utils/auth.js';
+import { UserContext } from '../../contexts/CurrentUserContext';
+import { mainApi } from '../../utils/api/MainApi';
 
 function App() {
 
-  const [loggedIn, setLoggedIn] = useState(true);
+  const [currentUser, setCurrentUser] = useState({});
+  const [loggedIn, setLoggedIn] = useState(false);
 
   const navigate = useNavigate();
 
@@ -27,6 +30,20 @@ function App() {
     || location.pathname === '/saved-movies'
     || location.pathname === '/profile';
   const isProfilePage = location.pathname === '/profile';
+
+  useEffect(() => {
+    async function recieveUserInfo() {
+      try {
+        const response = await mainApi.getCurrentUser();
+        setCurrentUser(response);
+        console.log(response)
+      } catch (error) {
+        console.log(error);
+      }
+    }
+
+    recieveUserInfo();
+  }, [])
 
   // Логин/логаут
   function handleLogin() {
@@ -60,19 +77,21 @@ function App() {
 
   return (
     <div className="page">
-      {isContextPages && <Header loggedIn={loggedIn} />}
-      <main className="content">
-        <Routes>
-          <Route path='/' element={<Main />} />
-          <Route path='/movies' element={<Movies />} />
-          <Route path='/saved-movies' element={<SavedMovies />} />
-          <Route path='/profile' element={<Profile handleLogout={handleLogout} />} />
-          <Route path='/sign-up' element={<Registration handleLogin={handleLogin} />} />
-          <Route path='/sign-in' element={<Login handleLogin={handleLogin} />} />
-          <Route path='*' element={<NotFound />} />
-        </Routes>
-      </main>
-      {isContextPages && !isProfilePage && <Footer />}
+      <UserContext.Provider value={currentUser}>
+        {isContextPages && <Header loggedIn={loggedIn} />}
+        <main className="content">
+          <Routes>
+            <Route path='/' element={<Main />} />
+            <Route path='/movies' element={<Movies />} />
+            <Route path='/saved-movies' element={<SavedMovies />} />
+            <Route path='/profile' element={<Profile handleLogout={handleLogout} />} />
+            <Route path='/sign-up' element={<Registration handleLogin={handleLogin} />} />
+            <Route path='/sign-in' element={<Login handleLogin={handleLogin} />} />
+            <Route path='*' element={<NotFound />} />
+          </Routes>
+        </main>
+        {isContextPages && !isProfilePage && <Footer />}
+      </UserContext.Provider>
     </div>
   );
 }

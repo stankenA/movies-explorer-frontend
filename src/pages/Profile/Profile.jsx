@@ -1,17 +1,36 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
+import { useFormWithValidation } from '../../hooks/useFormWithValidation';
+import { UserContext } from '../../contexts/CurrentUserContext';
 
 import './Profile.scss';
 
 export default function Profile({ handleLogout }) {
 
+  const currentUser = useContext(UserContext);
+
   const [isEditing, setIsEditing] = useState(false);
-  const [nameValue, setNameValue] = useState('Виталий');
-  const [emailValue, setEmailValue] = useState('vitalya@mail.ru');
+  const [nameValue, setNameValue] = useState(currentUser.name);
+  const [emailValue, setEmailValue] = useState(currentUser.email);
+
+  const { values, handleChange, errors, isValid, setValues, resetForm } = useFormWithValidation();
+
+  console.log(values)
+
+  function handleNameChange(evt) {
+    setNameValue(evt.target.value);
+    handleChange(evt);
+  }
+
+  function handleEmailChange(evt) {
+    setEmailValue(evt.target.value);
+    handleChange(evt);
+  }
 
   function saveNewInfo(evt) {
     evt.preventDefault();
     setIsEditing(false);
   }
+
   return (
     <section className="profile">
       <div className="profile__wrapper">
@@ -28,7 +47,7 @@ export default function Profile({ handleLogout }) {
               className="profile__input profile__txt"
               placeholder="Введите ваше имя"
               value={nameValue}
-              onChange={(evt) => setNameValue(evt.target.value)}
+              onChange={handleNameChange}
               disabled={!isEditing}
               required
             />
@@ -43,7 +62,7 @@ export default function Profile({ handleLogout }) {
               className="profile__input profile__txt"
               placeholder="Введите ваш e-mail"
               value={emailValue}
-              onChange={(evt) => setEmailValue(evt.target.value)}
+              onChange={handleEmailChange}
               disabled={!isEditing}
               required
             />

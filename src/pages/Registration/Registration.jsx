@@ -12,7 +12,7 @@ export default function Registration({ handleLogin }) {
 
   const { values, handleChange, errors, isValid, setValues, resetForm } = useFormWithValidation();
 
-  async function handleRegistration(password, email, name) {
+  async function signup(password, email, name) {
     try {
       const response = await auth.register(name, password, email);
       if (response) {
@@ -40,7 +40,7 @@ export default function Registration({ handleLogin }) {
       return;
     }
 
-    handleRegistration(values.password, values.email, values.name);
+    signup(values.password, values.email, values.name);
   }
 
   function handlePopupClose() {

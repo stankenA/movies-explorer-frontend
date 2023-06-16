@@ -22,7 +22,7 @@ export default function Login({ handleLogin }) {
     }
   }
 
-  async function login(password, email) {
+  async function signin(password, email) {
     try {
       const response = await auth.authorize(password, email);
       if (response.jwt) {
@@ -41,7 +41,7 @@ export default function Login({ handleLogin }) {
       return;
     }
 
-    login(values.password, values.email);
+    signin(values.password, values.email);
   }
 
   return (
