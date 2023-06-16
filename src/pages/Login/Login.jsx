@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import SignForm from '../../components/SignForm/SignForm'
 import { useFormWithValidation } from '../../hooks/useFormWithValidation';
 import Popup from '../../components/Popup/Popup';
+import * as auth from '../../utils/auth.js';
 
 export default function Login({ handleLogin }) {
 
@@ -32,8 +33,18 @@ export default function Login({ handleLogin }) {
     }
   }
 
-  function changePopupMessage(message) {
-    setPopupMessage(message);
+  async function handleRegistration(password, email) {
+    try {
+      const response = await auth.register(password, email);
+      if (response) {
+        setPopupMessage('Вы успешно зарегистрировались!');
+      }
+    } catch (err) {
+      console.log(err);
+      setPopupMessage('При регистрации пользователя произошла ошибка');
+    } finally {
+      setIsPopupOpened(true);
+    }
   }
 
   return (
@@ -44,12 +55,6 @@ export default function Login({ handleLogin }) {
         handleSubmit={handleSubmit}
         errors={errors}
         isValid={isValid}
-      />
-      <Popup
-        isPoupOpened={isPopupOpened}
-        onClose={handlePopupClose}
-        onBgClose={handleBgClose}
-        popupMessage={popupMessage}
       />
     </>
   )

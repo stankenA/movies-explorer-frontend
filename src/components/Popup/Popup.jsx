@@ -4,11 +4,11 @@ import './Popup.scss';
 import checkIcon from '../../images/check-icon.svg';
 import warningIcon from '../../images/warning-icon.svg';
 
-export default function Popup({ isPoupOpened, onClose, onBgClose, popupMessage }) {
+export default function Popup({ isPoupOpened, onClose, onBgClose, popupMessage, isSuccessfull }) {
   return (
     <div className={`popup ${isPoupOpened ? 'popup_opened' : ''}`} onClick={onBgClose}>
       <div className="popup__wrapper">
-        <img src={warningIcon} alt="Статус" className="popup__img" />
+        <img src={isSuccessfull ? checkIcon : warningIcon} alt="Статус" className="popup__img" />
         <p className="popup__txt">
           {popupMessage}
         </p>
