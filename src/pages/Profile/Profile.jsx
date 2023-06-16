@@ -37,6 +37,7 @@ export default function Profile({ handleLogout, changeCurrentUser }) {
       const response = await mainApi.updateCurrentUser(values.name, values.email);
       changeCurrentUser(response);
       setIsEditing(false);
+      setSubmitError('');
     } catch (err) {
       if (err.status === 409) {
         setSubmitError('Пользователь с таким email уже существует.');
@@ -110,6 +111,7 @@ export default function Profile({ handleLogout, changeCurrentUser }) {
               type="submit"
               className={`profile__save ${isValid ? 'profile__save_active' : ''}`}
               onClick={saveNewInfo}
+              disabled={isValid ? false : true}
             >
               {isLoading ? 'Сохранение...' : 'Сохранить'}
             </button>

@@ -36,7 +36,6 @@ function App() {
       try {
         const response = await mainApi.getCurrentUser();
         setCurrentUser(response);
-        console.log(response)
       } catch (error) {
         console.log(error);
       }
