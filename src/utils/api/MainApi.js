@@ -9,7 +9,7 @@ class Api {
       return res.json();
     }
 
-    return Promise.reject(`Что-то пошло не так: ${res.status}`);
+    return Promise.reject(res);
   }
 
   _request(url, options) {

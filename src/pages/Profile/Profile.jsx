@@ -1,10 +1,11 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { useFormWithValidation } from '../../hooks/useFormWithValidation';
 import { UserContext } from '../../contexts/CurrentUserContext';
+import { mainApi } from '../../utils/api/MainApi';
 
 import './Profile.scss';
 
-export default function Profile({ handleLogout }) {
+export default function Profile({ handleLogout, changeCurrentUser }) {
 
   const currentUser = useContext(UserContext);
 
@@ -16,7 +17,9 @@ export default function Profile({ handleLogout }) {
 
   const { values, handleChange, errors, isValid, setValues, resetForm } = useFormWithValidation();
 
-  console.log(values);
+  useEffect(() => {
+    setValues({ name: currentUser.name, email: currentUser.email })
+  }, []);
 
   function handleNameChange(evt) {
     setNameValue(evt.target.value);
@@ -28,9 +31,28 @@ export default function Profile({ handleLogout }) {
     handleChange(evt);
   }
 
+  async function handleUpdateUser() {
+    setIsLoading(true);
+    try {
+      const response = await mainApi.updateCurrentUser(values.name, values.email);
+      changeCurrentUser(response);
+      setIsEditing(false);
+    } catch (err) {
+      if (err.status === 409) {
+        setSubmitError('Пользователь с таким email уже существует.');
+        return;
+      }
+
+      setSubmitError('При регистрации пользователя произошла ошибка.');
+    } finally {
+      setIsLoading(false);
+    }
+  }
+
   function saveNewInfo(evt) {
     evt.preventDefault();
-    setIsEditing(false);
+
+    handleUpdateUser();
   }
 
   return (

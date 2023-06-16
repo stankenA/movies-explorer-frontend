@@ -75,6 +75,11 @@ function App() {
     handleTokenCheck();
   }, [loggedIn]);
 
+  // Изменение информации о текущем пользователе при её обновлении
+  function changeCurrentUser(data) {
+    setCurrentUser(data)
+  }
+
   return (
     <div className="page">
       <UserContext.Provider value={currentUser}>
@@ -84,7 +89,11 @@ function App() {
             <Route path='/' element={<Main />} />
             <Route path='/movies' element={<Movies />} />
             <Route path='/saved-movies' element={<SavedMovies />} />
-            <Route path='/profile' element={<Profile handleLogout={handleLogout} />} />
+            <Route path='/profile' element={
+              <Profile
+                handleLogout={handleLogout}
+                changeCurrentUser={changeCurrentUser}
+              />} />
             <Route path='/sign-up' element={<Registration handleLogin={handleLogin} />} />
             <Route path='/sign-in' element={<Login handleLogin={handleLogin} />} />
             <Route path='*' element={<NotFound />} />
