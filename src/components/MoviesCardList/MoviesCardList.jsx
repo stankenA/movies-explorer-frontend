@@ -1,69 +1,15 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import MoviesCard from '../MoviesCard/MoviesCard';
 
 import './MoviesCardList.scss';
-import { useResize } from '../../hooks/useResize';
-import { filterMovies } from '../../utils/filter';
 
-export default function MoviesCardList({ moviesArr, searchValue, isShorts, showPlaceholder }) {
-
-  const [visibleArr, setVisibleArr] = useState([]);
-  const [visibleMoviesNumber, setVisibleMoviesNumber] = useState(0);
-
-  const [moreMoviesNumber, setMoreMoviesNumber] = useState(0);
-  const [isMoreBtnVisible, setIsMoreBtnVisible] = useState(false);
-  const { isMobile, isTablet, isDesktop } = useResize();
-
-  useEffect(() => {
-    const savedMovies = localStorage.getItem('movies');
-
-    if (savedMovies) {
-      setVisibleArr(JSON.parse(savedMovies));
-    }
-  }, []);
-
-  useEffect(() => {
-    if (isDesktop) {
-      setVisibleMoviesNumber(12);
-      setMoreMoviesNumber(3);
-    } else if (isTablet) {
-      setVisibleMoviesNumber(8);
-      setMoreMoviesNumber(2);
-    } else if (isMobile) {
-      setVisibleMoviesNumber(5);
-      setMoreMoviesNumber(2);
-    }
-  }, [isDesktop, isTablet, isMobile]);
-
-  useEffect(() => {
-    // Отфильтровываем фильмы
-    const filteredMovies = filterMovies(moviesArr, searchValue, isShorts);
-
-    if (filteredMovies.length === 0) {
-      showPlaceholder('Ничего не найдено');
-      return;
-    }
-
-    // Сохраняем их в локальном хранилище
-    localStorage.setItem('movies', JSON.stringify(filteredMovies));
-
-    // Отрисовываем их на клиенте
-    setVisibleArr([...filteredMovies].splice(0, visibleMoviesNumber));
-
-    // Меняем стейт кнопки "Ещё"
-    if (filteredMovies.length / visibleArr.length === 1) {
-      setIsMoreBtnVisible(false);
-    } else if (filteredMovies.length > 3) {
-      setIsMoreBtnVisible(true);
-    }
-
-  }, [moviesArr, visibleArr.length, visibleMoviesNumber, isShorts]);
+export default function MoviesCardList({ moviesArr, isMoreBtnVisible, handleMoreBtn }) {
 
   return (
     <section className="movies">
       <div className="movies__wrapper">
         <ul className="movies__list">
-          {visibleArr.map((movie) => (
+          {moviesArr.map((movie) => (
             <MoviesCard
               title={movie.nameRU}
               duration={movie.duration}
@@ -78,7 +24,7 @@ export default function MoviesCardList({ moviesArr, searchValue, isShorts, showP
           <button
             type="button"
             className="movies__more"
-            onClick={() => setVisibleMoviesNumber(visibleMoviesNumber + moreMoviesNumber)}>
+            onClick={handleMoreBtn}>
             Ещё
           </button>}
       </div>

@@ -4,26 +4,34 @@ import MoviesCardList from '../../components/MoviesCardList/MoviesCardList';
 import Preloader from '../../components/Preloader/Preloader';
 import Placeholder from '../../components/Placeholder/Placeholder';
 import { useForm } from '../../hooks/useForm';
+import { useResize } from '../../hooks/useResize';
 import { moviesApi } from '../../utils/api/MovieApi';
+import { filterMovies } from '../../utils/filter';
 
 export default function Movies() {
 
-  // Плейсхолдер для сообщений пользователю
-  const [placeholder, setPlaceholder] = useState({
+  const [isLoading, setIsLoading] = useState(false);
+  const [initialMovies, setInitialMovies] = useState([]);
+  const [visibleMovies, setVisibleMovies] = useState([]);
+  const [placeholder, setPlaceholder] = useState({ // Плейсхолдер для сообщений пользователю
     isShown: true,
     message: 'Наливайте чай, доставайте печеньки и ищите фильм!'
   });
-  const [isLoading, setIsLoading] = useState(false);
-
-  const [movies, setMovies] = useState([]);
-
   // Собираем данные инпутов с помощью кастомного хука
   const { values, handleChange, setValues } = useForm({
     search: '',
     shortsCheckbox: false,
   });
+  // Проверяем размер экрана и определяем необходимые стейты
+  const { isMobile, isTablet, isDesktop } = useResize();
+  const [visibilityParams, setVisibilityParams] = useState({
+    visbleMovies: 0,
+    addableMovies: 0,
+  });
+  const [isMoreBtnVisible, setIsMoreBtnVisible] = useState(false);
 
-  useEffect(() => {
+  // Собираем данные из локального хранилища, если они там есть
+  function collectLocalData() {
     const savedSearch = localStorage.getItem('search');
     const savedCheckbox = localStorage.getItem('isShortsChecked');
     const savedMovies = localStorage.getItem('movies');
@@ -38,16 +46,17 @@ export default function Movies() {
 
     if (savedMovies) {
       setPlaceholder({ isShown: false, message: '' });
-      fetchMovies();
+      setInitialMovies(JSON.parse(savedMovies));
     }
-  }, []);
+  }
 
+  // Запрос всех фильмов с сервера
   async function fetchMovies() {
     setIsLoading(true);
 
     try {
       const response = await moviesApi.getInitialMovies();
-      setMovies(response);
+      setInitialMovies(response);
     } catch (error) {
       setPlaceholder({
         isShown: true,
@@ -58,15 +67,73 @@ export default function Movies() {
     }
   }
 
+  // Сабмит при нажатии на кнопку поиска
   function handleSubmit(evt) {
     evt.preventDefault();
     fetchMovies();
     setPlaceholder({ isShown: false, message: '' })
   }
 
-  function showPlaceholder(message) {
-    setPlaceholder({ isShown: true, message });
+  // Управление количеством отображаемых фильмов с помощью кнопки "Ещё"
+  function handleMoreBtn() {
+    setVisibilityParams({
+      visbleMovies: visibilityParams.visbleMovies + visibilityParams.addableMovies,
+      addableMovies: visibilityParams.addableMovies,
+    });
   }
+
+  // Фильтрация фильмов
+  useEffect(() => {
+
+    const filteredMovies = filterMovies(initialMovies, values.search, values.shortsCheckbox);
+
+    if (filteredMovies.length === 0) {
+      setPlaceholder({
+        isShown: true,
+        message: 'Ничего не найдено',
+      });
+      return;
+    }
+
+    // Сохраняем их в локальном хранилище
+    localStorage.setItem('movies', JSON.stringify(filteredMovies));
+
+    // Отрисовываем их на клиенте
+    setVisibleMovies([...filteredMovies].splice(0, visibilityParams.visbleMovies));
+
+    // Меняем состояние кнопки "Ещё"
+    if (filteredMovies.length / visibleMovies.length === 1) {
+      setIsMoreBtnVisible(false);
+    } else if (filteredMovies.length > 3) {
+      setIsMoreBtnVisible(true);
+    }
+
+  }, [visibilityParams.visbleMovies, values.shortsCheckbox, initialMovies, visibleMovies.length]);
+
+  // Отображаем соответствующее количество фильмов в зависимости от размеров экрана
+  useEffect(() => {
+    if (isDesktop) {
+      setVisibilityParams({
+        visbleMovies: 12,
+        addableMovies: 3,
+      })
+    } else if (isTablet) {
+      setVisibilityParams({
+        visbleMovies: 8,
+        addableMovies: 2,
+      })
+    } else if (isMobile) {
+      setVisibilityParams({
+        visbleMovies: 5,
+        addableMovies: 2,
+      })
+    }
+  }, [isDesktop, isTablet, isMobile]);
+
+  // Сбор локальных данных
+  useEffect(() => {
+    collectLocalData();
+  }, []);
 
   return (
     <>
@@ -84,10 +151,9 @@ export default function Movies() {
             ? <Preloader />
             :
             <MoviesCardList
-              moviesArr={movies}
-              searchValue={values.search}
-              isShorts={values.shortsCheckbox}
-              showPlaceholder={showPlaceholder}
+              moviesArr={visibleMovies}
+              handleMoreBtn={handleMoreBtn}
+              isMoreBtnVisible={isMoreBtnVisible}
             />
       }
     </>

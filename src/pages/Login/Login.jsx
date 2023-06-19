@@ -30,7 +30,7 @@ export default function Login({ handleLogin }) {
         handleLogin();
       }
     } catch (err) {
-      setIsSuccessfull(true);
+      setIsSuccessfull(false);
       setPopupMessage('Вы ввели неправильный логин или пароль.');
     } finally {
       setIsPopupOpened(true);
