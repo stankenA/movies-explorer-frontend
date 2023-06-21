@@ -1,17 +1,60 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useLocation, Link } from 'react-router-dom';
 
 import './MoviesCard.scss';
 import MoviesCardSaveBtn from './MoviesCardSaveBtn/MoviesCardSaveBtn';
 import MoviesCardDeleteBtn from './MoviesCardDeleteBtn/MoviesCardDeleteBtn';
+import { mainApi } from '../../utils/api/MainApi';
 
-export default function MoviesCard({ title, duration, thumbnail, trailerLink }) {
+export default function MoviesCard({ movie, title, duration, thumbnail, trailerLink }) {
 
   const location = useLocation();
   const isSavedMoviesPage = location.pathname === '/saved-movies';
+  const [isLiked, setIsLiked] = useState(false);
 
-  function onClick() {
-    console.log('boop');
+  async function saveMovie(movie) {
+    const movieObj = {
+      country: movie.country,
+      director: movie.director,
+      duration: movie.duration,
+      year: movie.year,
+      description: movie.description,
+      image: `https://api.nomoreparties.co/${movie.image.url}`,
+      trailerLink: movie.trailerLink,
+      nameRU: movie.nameRU,
+      nameEN: movie.nameEN,
+      thumbnail: `https://api.nomoreparties.co/${movie.image.url}`,
+      movieId: movie.id,
+    };
+
+    try {
+      await mainApi.saveNewMovie(movieObj);
+      setIsLiked(true);
+    } catch (err) {
+      console.log(err);
+    }
+  }
+
+  async function deleteMovie(movieId) {
+    try {
+      await mainApi.deleteSavedMovie(movieId);
+      setIsLiked(false);
+    } catch (err) {
+      console.log(err);
+    }
+  }
+
+  function onLike() {
+
+    if (!isLiked) {
+      saveMovie(movie);
+    } else if (isLiked) {
+      deleteMovie(movie.id);
+    }
+  }
+
+  function onDelete() {
+
   }
 
   return (
@@ -26,8 +69,8 @@ export default function MoviesCard({ title, duration, thumbnail, trailerLink }) 
           </p>
         </div>
         {isSavedMoviesPage
-          ? <MoviesCardDeleteBtn onClick={onClick} />
-          : <MoviesCardSaveBtn onClick={onClick} />}
+          ? <MoviesCardDeleteBtn onClick={onDelete} />
+          : <MoviesCardSaveBtn onLike={onLike} isLiked={isLiked} />}
       </div>
       <Link to={trailerLink} className="movies__link" target="_blank">
         <img src={thumbnail} alt={`Превью фильма ${title}`} className="movies__img" />

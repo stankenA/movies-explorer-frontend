@@ -11,6 +11,7 @@ export default function MoviesCardList({ moviesArr, isMoreBtnVisible, handleMore
         <ul className="movies__list">
           {moviesArr.map((movie) => (
             <MoviesCard
+              movie={movie}
               title={movie.nameRU}
               duration={movie.duration}
               thumbnail={`https://api.nomoreparties.co/${movie.image.url}`}

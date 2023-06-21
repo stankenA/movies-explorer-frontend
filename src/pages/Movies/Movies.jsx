@@ -67,7 +67,7 @@ export default function Movies() {
     }
   }
 
-  // Функция фильтрации фиьмов
+  // Функция фильтрации фильмов
   function filterMovies() {
     const filteredMovies = filterMoviesByParams(initialMovies, values.search, values.shortsCheckbox);
 
