@@ -1,4 +1,4 @@
-export function filterMovies(moviesArr, searchValue, isShorts) {
+export function filterMoviesByParams(moviesArr, searchValue, isShorts) {
   const filteredBySearchMovies = moviesArr.filter((movie) => {
     return movie.nameRU.toLowerCase().includes(searchValue);
   });

@@ -6,7 +6,7 @@ import Placeholder from '../../components/Placeholder/Placeholder';
 import { useForm } from '../../hooks/useForm';
 import { useResize } from '../../hooks/useResize';
 import { moviesApi } from '../../utils/api/MovieApi';
-import { filterMovies } from '../../utils/filter';
+import { filterMoviesByParams } from '../../utils/filter';
 
 export default function Movies() {
 
@@ -67,25 +67,9 @@ export default function Movies() {
     }
   }
 
-  // Сабмит при нажатии на кнопку поиска
-  function handleSubmit(evt) {
-    evt.preventDefault();
-    fetchMovies();
-    setPlaceholder({ isShown: false, message: '' })
-  }
-
-  // Управление количеством отображаемых фильмов с помощью кнопки "Ещё"
-  function handleMoreBtn() {
-    setVisibilityParams({
-      visbleMovies: visibilityParams.visbleMovies + visibilityParams.addableMovies,
-      addableMovies: visibilityParams.addableMovies,
-    });
-  }
-
-  // Фильтрация фильмов
-  useEffect(() => {
-
-    const filteredMovies = filterMovies(initialMovies, values.search, values.shortsCheckbox);
+  // Функция фильтрации фиьмов
+  function filterMovies() {
+    const filteredMovies = filterMoviesByParams(initialMovies, values.search, values.shortsCheckbox);
 
     if (filteredMovies.length === 0) {
       setPlaceholder({
@@ -94,6 +78,12 @@ export default function Movies() {
       });
       return;
     }
+
+    // Убираем плейсхолдер, если фильмы есть
+    setPlaceholder({
+      isShown: false,
+      message: '',
+    });
 
     // Сохраняем их в локальном хранилище
     localStorage.setItem('movies', JSON.stringify(filteredMovies));
@@ -107,7 +97,28 @@ export default function Movies() {
     } else if (filteredMovies.length > 3) {
       setIsMoreBtnVisible(true);
     }
+  }
 
+  // Сабмит при нажатии на кнопку поиска
+  function handleSubmit(evt) {
+    evt.preventDefault();
+    fetchMovies();
+    filterMovies();
+  }
+
+  // Управление количеством отображаемых фильмов с помощью кнопки "Ещё"
+  function handleMoreBtn() {
+    setVisibilityParams({
+      visbleMovies: visibilityParams.visbleMovies + visibilityParams.addableMovies,
+      addableMovies: visibilityParams.addableMovies,
+    });
+  }
+
+  // Фильтрация фильмов, если они есть в хранилище и повторная фильтрация при изменении зависимостей
+  useEffect(() => {
+    if (localStorage.getItem('movies')) {
+      filterMovies();
+    }
   }, [visibilityParams.visbleMovies, values.shortsCheckbox, initialMovies, visibleMovies.length]);
 
   // Отображаем соответствующее количество фильмов в зависимости от размеров экрана
