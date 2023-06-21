@@ -53,10 +53,15 @@ export default function Movies() {
   // Запрос всех фильмов с сервера
   async function fetchMovies() {
     setIsLoading(true);
+    setPlaceholder({
+      isShown: false,
+      message: '',
+    });
 
     try {
       const response = await moviesApi.getInitialMovies();
       setInitialMovies(response);
+      localStorage.setItem('movies', JSON.stringify(response));
     } catch (error) {
       setPlaceholder({
         isShown: true,
@@ -79,7 +84,7 @@ export default function Movies() {
       return;
     }
 
-    // Убираем плейсхолдер, если фильмы есть
+    // Убираем плейсхолдер, если фильмы найдены
     setPlaceholder({
       isShown: false,
       message: '',
@@ -103,7 +108,6 @@ export default function Movies() {
   function handleSubmit(evt) {
     evt.preventDefault();
     fetchMovies();
-    filterMovies();
   }
 
   // Управление количеством отображаемых фильмов с помощью кнопки "Ещё"
