@@ -56,7 +56,7 @@ class Api {
 }
 
 export const mainApi = new Api({
-  url: 'http://localhost:3001',
+  url: 'https://api.movies-exporer.nomoredomains.rocks',
   headers: {
     'Content-Type': 'application/json',
     'Authorization': `Bearer ${localStorage.getItem('jwt')}`
