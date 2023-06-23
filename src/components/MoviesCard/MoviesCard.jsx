@@ -24,7 +24,6 @@ export default function MoviesCard({ movie, title, duration, thumbnail, trailerL
 
   function handleLikeChange() {
     const isLiked = checkIsLiked(movie.id);
-    console.log(isLiked);
 
     if (isLiked) {
       setIsLiked(true)

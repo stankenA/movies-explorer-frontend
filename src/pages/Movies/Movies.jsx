@@ -68,7 +68,7 @@ export default function Movies() {
       setPlaceholder({
         isShown: true,
         message: 'Во время запроса произошла ошибка. Возможно, проблема с соединением или сервер недоступен. Подождите немного и попробуйте ещё раз'
-      })
+      });
     } finally {
       setIsLoading(false);
     }

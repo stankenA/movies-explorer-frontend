@@ -16,6 +16,7 @@ import NotFound from '../../pages/NotFound/NotFound';
 import * as auth from '../../utils/auth.js';
 import { UserContext } from '../../contexts/CurrentUserContext';
 import { mainApi } from '../../utils/api/MainApi';
+import ProtectedRoute from '../ProtectedRoute/ProtectedRoute';
 
 function App() {
 
@@ -86,10 +87,22 @@ function App() {
         <main className="content">
           <Routes>
             <Route path='/' element={<Main />} />
-            <Route path='/movies' element={<Movies />} />
-            <Route path='/saved-movies' element={<SavedMovies />} />
+            <Route path='/movies' element={
+              <ProtectedRoute
+                element={Movies}
+                loggedIn={loggedIn}
+              />
+            } />
+            <Route path='/saved-movies' element={
+              <ProtectedRoute
+                element={SavedMovies}
+                loggedIn={loggedIn}
+              />
+            } />
             <Route path='/profile' element={
-              <Profile
+              <ProtectedRoute
+                element={Profile}
+                loggedIn={loggedIn}
                 handleLogout={handleLogout}
                 changeCurrentUser={changeCurrentUser}
               />} />
