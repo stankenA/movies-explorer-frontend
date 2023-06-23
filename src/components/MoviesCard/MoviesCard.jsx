@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useLocation, Link } from 'react-router-dom';
 
 import './MoviesCard.scss';
@@ -6,11 +6,36 @@ import MoviesCardSaveBtn from './MoviesCardSaveBtn/MoviesCardSaveBtn';
 import MoviesCardDeleteBtn from './MoviesCardDeleteBtn/MoviesCardDeleteBtn';
 import { mainApi } from '../../utils/api/MainApi';
 
-export default function MoviesCard({ movie, title, duration, thumbnail, trailerLink, handleDelete }) {
+export default function MoviesCard({ movie, title, duration, thumbnail, trailerLink, handleDelete, savedMoviesArr }) {
 
   const location = useLocation();
   const isSavedMoviesPage = location.pathname === '/saved-movies';
   const [isLiked, setIsLiked] = useState(false);
+
+  function checkIsLiked(id) {
+    if (savedMoviesArr) {
+      return savedMoviesArr.some((movie) => {
+        return movie.movieId === id;
+      })
+    }
+
+    return false;
+  }
+
+  function handleLikeChange() {
+    const isLiked = checkIsLiked(movie.id);
+    console.log(isLiked);
+
+    if (isLiked) {
+      setIsLiked(true)
+    } else {
+      setIsLiked(false);
+    }
+  }
+
+  useEffect(() => {
+    handleLikeChange()
+  }, [savedMoviesArr]);
 
   async function saveMovie(movie) {
     const movieObj = {

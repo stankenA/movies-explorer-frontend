@@ -3,7 +3,7 @@ import MoviesCard from '../MoviesCard/MoviesCard';
 
 import './MoviesCardList.scss';
 
-export default function MoviesCardList({ moviesArr, isMoreBtnVisible, handleMoreBtn, handleDelete }) {
+export default function MoviesCardList({ moviesArr, savedMoviesArr, isMoreBtnVisible, handleMoreBtn, handleDelete }) {
 
   return (
     <section className="movies">
@@ -18,6 +18,7 @@ export default function MoviesCardList({ moviesArr, isMoreBtnVisible, handleMore
               trailerLink={movie.trailerLink}
               handleDelete={handleDelete}
               key={movie.id || movie.movieId}
+              savedMoviesArr={savedMoviesArr}
             />
           ))}
         </ul>

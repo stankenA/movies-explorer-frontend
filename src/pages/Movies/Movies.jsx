@@ -7,12 +7,14 @@ import { useForm } from '../../hooks/useForm';
 import { useResize } from '../../hooks/useResize';
 import { moviesApi } from '../../utils/api/MovieApi';
 import { filterMoviesByParams } from '../../utils/filter';
+import { mainApi } from '../../utils/api/MainApi';
 
 export default function Movies() {
 
   const [isLoading, setIsLoading] = useState(false);
   const [initialMovies, setInitialMovies] = useState([]);
   const [visibleMovies, setVisibleMovies] = useState([]);
+  const [savedMovies, setSavedMovies] = useState([]); // Необходим для проверки, есть у карточки лайк
   const [placeholder, setPlaceholder] = useState({ // Плейсхолдер для сообщений пользователю
     isShown: true,
     message: 'Наливайте чай, доставайте печеньки и ищите фильм!'
@@ -32,25 +34,25 @@ export default function Movies() {
 
   // Собираем данные из локального хранилища, если они там есть
   function collectLocalData() {
-    const savedSearch = localStorage.getItem('search');
-    const savedCheckbox = localStorage.getItem('isShortsChecked');
-    const savedMovies = localStorage.getItem('movies');
+    const storedSearch = localStorage.getItem('search');
+    const storedCheckbox = localStorage.getItem('isShortsChecked');
+    const storedMovies = localStorage.getItem('movies');
 
-    if (savedSearch) {
-      setValues({ search: savedSearch, shortsCheckbox: values.shortsCheckbox });
+    if (storedSearch) {
+      setValues({ search: storedSearch, shortsCheckbox: values.shortsCheckbox });
     }
 
-    if (savedCheckbox) {
-      savedCheckbox === 'true' ? values.shortsCheckbox = true : values.shortsCheckbox = false;
+    if (storedCheckbox) {
+      storedCheckbox === 'true' ? values.shortsCheckbox = true : values.shortsCheckbox = false;
     }
 
-    if (savedMovies) {
+    if (storedMovies) {
       setPlaceholder({ isShown: false, message: '' });
-      setInitialMovies(JSON.parse(savedMovies));
+      setInitialMovies(JSON.parse(storedMovies));
     }
   }
 
-  // Запрос всех фильмов с сервера
+  // Запрос всех фильмов с основного сервиса
   async function fetchMovies() {
     setIsLoading(true);
     setPlaceholder({
@@ -71,6 +73,20 @@ export default function Movies() {
       setIsLoading(false);
     }
   }
+
+  // Запрос сохранённых фильмов с нашего API
+  async function fetchSavedMovies() {
+    try {
+      const response = await mainApi.getSavedMovies();
+      setSavedMovies(response);
+    } catch (err) {
+      console.log(err);
+    }
+  }
+
+  useEffect(() => {
+    fetchSavedMovies();
+  }, [])
 
   // Функция фильтрации фильмов
   function filterMovies() {
@@ -167,6 +183,7 @@ export default function Movies() {
             :
             <MoviesCardList
               moviesArr={visibleMovies}
+              savedMoviesArr={savedMovies}
               handleMoreBtn={handleMoreBtn}
               isMoreBtnVisible={isMoreBtnVisible}
             />
