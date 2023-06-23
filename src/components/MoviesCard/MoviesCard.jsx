@@ -6,7 +6,7 @@ import MoviesCardSaveBtn from './MoviesCardSaveBtn/MoviesCardSaveBtn';
 import MoviesCardDeleteBtn from './MoviesCardDeleteBtn/MoviesCardDeleteBtn';
 import { mainApi } from '../../utils/api/MainApi';
 
-export default function MoviesCard({ movie, title, duration, thumbnail, trailerLink }) {
+export default function MoviesCard({ movie, title, duration, thumbnail, trailerLink, handleDelete }) {
 
   const location = useLocation();
   const isSavedMoviesPage = location.pathname === '/saved-movies';
@@ -45,7 +45,6 @@ export default function MoviesCard({ movie, title, duration, thumbnail, trailerL
   }
 
   function onLike() {
-
     if (!isLiked) {
       saveMovie(movie);
     } else if (isLiked) {
@@ -54,7 +53,8 @@ export default function MoviesCard({ movie, title, duration, thumbnail, trailerL
   }
 
   function onDelete() {
-
+    deleteMovie(movie.movieId);
+    handleDelete(movie.movieId);
   }
 
   return (

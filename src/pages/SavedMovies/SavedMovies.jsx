@@ -5,17 +5,17 @@ import Placeholder from '../../components/Placeholder/Placeholder';
 import Preloader from '../../components/Preloader/Preloader';
 import { useForm } from '../../hooks/useForm';
 import { mainApi } from '../../utils/api/MainApi';
+import { filterMoviesByParams } from '../../utils/filter';
 
 export default function Movies() {
 
-  // Плейсхолдер для сообщений пользователю
-  const [placeholder, setPlaceholder] = useState({
+  const [isLoading, setIsLoading] = useState(false);
+  const [initialMovies, setInitialMovies] = useState([]);
+  const [visibleMovies, setVisibleMovies] = useState([]);
+  const [placeholder, setPlaceholder] = useState({ // Плейсхолдер для сообщений пользователю
     isShown: true,
     message: 'Наливайте чай, доставайте печеньки и ищите фильм!'
   });
-  const [isLoading, setIsLoading] = useState(false);
-
-  const [movies, setMovies] = useState([]);
 
   // Собираем данные инпутов с помощью кастомного хука
   const { values, handleChange, setValues } = useForm({
@@ -23,10 +23,10 @@ export default function Movies() {
     shortsCheckbox: false,
   });
 
-  useEffect(() => {
+  // Собираем данные из локального хранилища, если они там есть
+  function collectLocalData() {
     const savedSearch = localStorage.getItem('search');
     const savedCheckbox = localStorage.getItem('isShortsChecked');
-    const savedMovies = localStorage.getItem('movies');
 
     if (savedSearch) {
       setValues({ search: savedSearch, shortsCheckbox: values.shortsCheckbox });
@@ -35,19 +35,20 @@ export default function Movies() {
     if (savedCheckbox) {
       savedCheckbox === 'true' ? values.shortsCheckbox = true : values.shortsCheckbox = false;
     }
+  }
 
-    if (savedMovies) {
-      setPlaceholder({ isShown: false, message: '' });
-      fetchSavedMovies();
-    }
-  }, []);
-
+  // Запрос всех сохранённых фильмов с сервера
   async function fetchSavedMovies() {
     setIsLoading(true);
+    setPlaceholder({
+      isShown: false,
+      message: '',
+    });
 
     try {
       const response = await mainApi.getSavedMovies();
-      setMovies(response);
+      setInitialMovies(response);
+      localStorage.setItem('saved-movies', JSON.stringify(response));
     } catch (error) {
       setPlaceholder({
         isShown: true,
@@ -58,14 +59,64 @@ export default function Movies() {
     }
   }
 
-  function handleSubmit(evt) {
-    evt.preventDefault();
+  useEffect(() => {
     fetchSavedMovies();
-    setPlaceholder({ isShown: false, message: '' })
+  }, [])
+
+  // Функция фильтрации фильмов
+  function filterMovies() {
+    const filteredMovies = filterMoviesByParams(initialMovies, values.search, values.shortsCheckbox);
+
+    if (filteredMovies.length === 0) {
+      setPlaceholder({
+        isShown: true,
+        message: 'Ничего не найдено',
+      });
+      return;
+    }
+
+    // Убираем плейсхолдер, если фильмы найдены
+    setPlaceholder({
+      isShown: false,
+      message: '',
+    });
+
+    // Сохраняем их в локальном хранилище
+    localStorage.setItem('saved-movies', JSON.stringify(filteredMovies));
+
+    // Отрисовываем их на клиенте
+    setVisibleMovies([...filteredMovies]);
   }
 
-  function showPlaceholder(message) {
-    setPlaceholder({ isShown: true, message });
+  // Сабмит при нажатии на кнопку поиска
+  function handleSubmit(evt) {
+    evt.preventDefault();
+    filterMovies();
+  }
+
+  // Фильтрация фильмов, если они есть в хранилище и повторная фильтрация при изменении зависимостей
+  useEffect(() => {
+    if (localStorage.getItem('saved-movies')) {
+      filterMovies();
+    }
+  }, [values.shortsCheckbox, initialMovies]);
+
+  // Сбор локальных данных
+  useEffect(() => {
+    collectLocalData();
+  }, []);
+
+  // Функция удаления карточки из отрисованных фильмов
+  function handleCardDelete(movieId) {
+    const newArr = visibleMovies.filter((movie) => movie.movieId !== movieId);
+    setVisibleMovies(newArr);
+
+    if (newArr.length === 0) {
+      setPlaceholder({
+        isShown: true,
+        message: 'Все сохранённые фильмы были удалены'
+      })
+    }
   }
 
   return (
@@ -84,10 +135,9 @@ export default function Movies() {
             ? <Preloader />
             :
             <MoviesCardList
-              moviesArr={movies}
-              searchValue={values.search}
-              isShorts={values.shortsCheckbox}
-              showPlaceholder={showPlaceholder}
+              moviesArr={visibleMovies}
+              isMoreBtnVisible={false}
+              handleDelete={handleCardDelete}
             />
       }
     </>

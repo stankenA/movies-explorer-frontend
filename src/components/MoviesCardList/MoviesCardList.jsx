@@ -3,7 +3,7 @@ import MoviesCard from '../MoviesCard/MoviesCard';
 
 import './MoviesCardList.scss';
 
-export default function MoviesCardList({ moviesArr, isMoreBtnVisible, handleMoreBtn }) {
+export default function MoviesCardList({ moviesArr, isMoreBtnVisible, handleMoreBtn, handleDelete }) {
 
   return (
     <section className="movies">
@@ -14,9 +14,10 @@ export default function MoviesCardList({ moviesArr, isMoreBtnVisible, handleMore
               movie={movie}
               title={movie.nameRU}
               duration={movie.duration}
-              thumbnail={`https://api.nomoreparties.co/${movie.image.url}`}
+              thumbnail={movie.image.url ? `https://api.nomoreparties.co/${movie.image.url}` : movie.image}
               trailerLink={movie.trailerLink}
-              key={movie.id}
+              handleDelete={handleDelete}
+              key={movie.id || movie.movieId}
             />
           ))}
         </ul>
