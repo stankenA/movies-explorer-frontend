@@ -1,4 +1,4 @@
-class Api {
+export default class MainApi {
   constructor({ url, headers }) {
     this._url = url;
     this._headers = headers;
@@ -54,11 +54,3 @@ class Api {
     })
   }
 }
-
-export const mainApi = new Api({
-  url: 'https://api.movies-exporer.nomoredomains.rocks',
-  headers: {
-    'Content-Type': 'application/json',
-    'Authorization': `Bearer ${localStorage.getItem('jwt')}`
-  }
-});

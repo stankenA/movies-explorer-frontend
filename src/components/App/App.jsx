@@ -15,7 +15,7 @@ import Footer from '../Footer/Footer';
 import NotFound from '../../pages/NotFound/NotFound';
 import * as auth from '../../utils/auth.js';
 import { UserContext } from '../../contexts/CurrentUserContext';
-import { mainApi } from '../../utils/api/MainApi';
+import MainApi from '../../utils/api/MainApi';
 import ProtectedRoute from '../ProtectedRoute/ProtectedRoute';
 
 function App() {
@@ -32,18 +32,29 @@ function App() {
     || location.pathname === '/profile';
   const isProfilePage = location.pathname === '/profile';
 
+  // API
+  const mainApi = new MainApi({
+    url: 'https://api.movies-exporer.nomoredomains.rocks',
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${localStorage.getItem('jwt')}`
+    }
+  });
+
   useEffect(() => {
     async function recieveUserInfo() {
-      try {
-        const response = await mainApi.getCurrentUser();
-        setCurrentUser(response);
-      } catch (error) {
-        console.log(error);
+      if (loggedIn) {
+        try {
+          const response = await mainApi.getCurrentUser();
+          setCurrentUser(response);
+        } catch (error) {
+          console.log(error);
+        }
       }
     }
 
     recieveUserInfo();
-  }, [])
+  }, [loggedIn]);
 
   // Логин/логаут
   function handleLogin() {
@@ -58,16 +69,23 @@ function App() {
   }
 
   // Проверка токена пользователя
-  function handleTokenCheck() {
+  async function handleTokenCheck() {
     const jwt = localStorage.getItem('jwt');
 
     if (jwt) {
-      auth.checkToken(jwt).then((res) => {
-        if (res) {
-          handleLogin()
+      try {
+        const response = await auth.checkToken(jwt);
+
+        if (response) {
+          setCurrentUser({
+            name: response.name,
+            email: response.email
+          });
+          handleLogin();
         }
-      })
-        .catch((err) => console.log(err))
+      } catch (error) {
+        console.log(error);
+      }
     }
   }
 

@@ -4,7 +4,7 @@ import MoviesCardList from '../../components/MoviesCardList/MoviesCardList';
 import Placeholder from '../../components/Placeholder/Placeholder';
 import Preloader from '../../components/Preloader/Preloader';
 import { useForm } from '../../hooks/useForm';
-import { mainApi } from '../../utils/api/MainApi';
+import MainApi from '../../utils/api/MainApi';
 import { filterMoviesByParams } from '../../utils/filter';
 
 export default function Movies() {
@@ -21,6 +21,15 @@ export default function Movies() {
   const { values, handleChange, setValues } = useForm({
     search: '',
     shortsCheckbox: false,
+  });
+
+  // API
+  const mainApi = new MainApi({
+    url: 'https://api.movies-exporer.nomoredomains.rocks',
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${localStorage.getItem('jwt')}`
+    }
   });
 
   // Собираем данные из локального хранилища, если они там есть

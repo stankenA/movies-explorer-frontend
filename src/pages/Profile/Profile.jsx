@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { useFormWithValidation } from '../../hooks/useFormWithValidation';
 import { UserContext } from '../../contexts/CurrentUserContext';
-import { mainApi } from '../../utils/api/MainApi';
+import MainApi from '../../utils/api/MainApi';
 
 import './Profile.scss';
 
@@ -16,6 +16,15 @@ export default function Profile({ handleLogout, changeCurrentUser }) {
   const [isLoading, setIsLoading] = useState(false);
 
   const { values, handleChange, errors, isValid, setValues, resetForm } = useFormWithValidation();
+
+  // API
+  const mainApi = new MainApi({
+    url: 'https://api.movies-exporer.nomoredomains.rocks',
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${localStorage.getItem('jwt')}`
+    }
+  });
 
   useEffect(() => {
     setValues({ name: currentUser.name, email: currentUser.email })

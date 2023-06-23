@@ -4,13 +4,22 @@ import { useLocation, Link } from 'react-router-dom';
 import './MoviesCard.scss';
 import MoviesCardSaveBtn from './MoviesCardSaveBtn/MoviesCardSaveBtn';
 import MoviesCardDeleteBtn from './MoviesCardDeleteBtn/MoviesCardDeleteBtn';
-import { mainApi } from '../../utils/api/MainApi';
+import MainApi from '../../utils/api/MainApi';
 
 export default function MoviesCard({ movie, title, duration, thumbnail, trailerLink, handleDelete, savedMoviesArr }) {
 
   const location = useLocation();
   const isSavedMoviesPage = location.pathname === '/saved-movies';
   const [isLiked, setIsLiked] = useState(false);
+
+  // API
+  const mainApi = new MainApi({
+    url: 'https://api.movies-exporer.nomoredomains.rocks',
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${localStorage.getItem('jwt')}`
+    }
+  });
 
   function checkIsLiked(id) {
     if (savedMoviesArr) {

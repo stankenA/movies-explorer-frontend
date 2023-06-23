@@ -7,7 +7,7 @@ import { useForm } from '../../hooks/useForm';
 import { useResize } from '../../hooks/useResize';
 import { moviesApi } from '../../utils/api/MovieApi';
 import { filterMoviesByParams } from '../../utils/filter';
-import { mainApi } from '../../utils/api/MainApi';
+import MainApi from '../../utils/api/MainApi';
 
 export default function Movies() {
 
@@ -31,6 +31,15 @@ export default function Movies() {
     addableMovies: 0,
   });
   const [isMoreBtnVisible, setIsMoreBtnVisible] = useState(false);
+
+  // API
+  const mainApi = new MainApi({
+    url: 'https://api.movies-exporer.nomoredomains.rocks',
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${localStorage.getItem('jwt')}`
+    }
+  });
 
   // Собираем данные из локального хранилища, если они там есть
   function collectLocalData() {
