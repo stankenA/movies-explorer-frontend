@@ -87,16 +87,16 @@ export default function Movies() {
   }
 
   // Запрос сохранённых фильмов с нашего API
-  async function fetchSavedMovies() {
-    try {
-      const response = await mainApi.getSavedMovies();
-      setSavedMovies(response);
-    } catch (err) {
-      console.log(err);
-    }
-  }
-
   useEffect(() => {
+    async function fetchSavedMovies() {
+      try {
+        const response = await mainApi.getSavedMovies();
+        setSavedMovies(response);
+      } catch (err) {
+        console.log(err);
+      }
+    }
+
     fetchSavedMovies();
   }, [])
 

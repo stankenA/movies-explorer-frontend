@@ -91,8 +91,8 @@ export default function Movies() {
   }, [values.shortsCheckbox, initialMovies]);
 
   // Функция удаления карточки из отрисованных фильмов
-  function handleCardDelete(movieId) {
-    const newArr = visibleMovies.filter((movie) => movie.movieId !== movieId);
+  function handleCardDelete(savedMovie) {
+    const newArr = visibleMovies.filter((movie) => movie._id !== savedMovie._id);
     setVisibleMovies(newArr);
 
     if (newArr.length === 0) {
