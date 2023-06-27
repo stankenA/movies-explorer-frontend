@@ -12,6 +12,7 @@ import MainApi from '../../utils/api/MainApi';
 export default function Movies() {
 
   const [isLoading, setIsLoading] = useState(false);
+  const [isFirstFetch, setIsFirstFetch] = useState(true);
   const [initialMovies, setInitialMovies] = useState([]);
   const [visibleMovies, setVisibleMovies] = useState([]);
   const [savedMovies, setSavedMovies] = useState([]); // Необходим для проверки, есть у карточки лайк
@@ -58,6 +59,7 @@ export default function Movies() {
     if (storedMovies) {
       setPlaceholder({ isShown: false, message: '' });
       setInitialMovies(JSON.parse(storedMovies));
+      setIsFirstFetch(false);
     }
   }
 
@@ -132,7 +134,13 @@ export default function Movies() {
   // Сабмит при нажатии на кнопку поиска
   function handleSubmit(evt) {
     evt.preventDefault();
-    fetchMovies();
+
+    if (isFirstFetch) {
+      fetchMovies();
+      setIsFirstFetch(false);
+    } else {
+      filterMovies();
+    }
   }
 
   // Управление количеством отображаемых фильмов с помощью кнопки "Ещё"

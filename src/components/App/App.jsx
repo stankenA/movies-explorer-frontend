@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Routes, Route, useLocation, useNavigate } from 'react-router-dom';
+import { Routes, Route, useLocation, useNavigate, Navigate } from 'react-router-dom';
 import '../../vendor/normalize.css';
 import '../../vendor/fonts/fonts.css';
 import './App.scss';
@@ -17,11 +17,13 @@ import * as auth from '../../utils/auth.js';
 import { UserContext } from '../../contexts/CurrentUserContext';
 import MainApi from '../../utils/api/MainApi';
 import ProtectedRoute from '../ProtectedRoute/ProtectedRoute';
+import ProtectedAuthRoute from '../ProtectedAuthRoute/ProtectedAuthRoute';
 
 function App() {
 
   const [currentUser, setCurrentUser] = useState({});
-  const [loggedIn, setLoggedIn] = useState(false);
+  const [loggedIn, setLoggedIn] = useState(Boolean(localStorage.getItem('jwt')));
+  console.log(loggedIn);
 
   const navigate = useNavigate();
 
@@ -41,24 +43,8 @@ function App() {
     }
   });
 
-  useEffect(() => {
-    async function recieveUserInfo() {
-      if (loggedIn) {
-        try {
-          const response = await mainApi.getCurrentUser();
-          setCurrentUser(response);
-        } catch (error) {
-          console.log(error);
-        }
-      }
-    }
-
-    recieveUserInfo();
-  }, [loggedIn]);
-
   // Логин/логаут
   function handleLogin() {
-    navigate('/movies', { replace: true })
     setLoggedIn(true);
   }
 
@@ -81,7 +67,7 @@ function App() {
             name: response.name,
             email: response.email
           });
-          handleLogin();
+          setLoggedIn(true);
         }
       } catch (error) {
         console.log(error);
@@ -91,6 +77,21 @@ function App() {
 
   useEffect(() => {
     handleTokenCheck();
+  }, []);
+
+  useEffect(() => {
+    async function recieveUserInfo() {
+      if (loggedIn) {
+        try {
+          const response = await mainApi.getCurrentUser();
+          setCurrentUser(response);
+        } catch (error) {
+          console.log(error);
+        }
+      }
+    }
+
+    recieveUserInfo();
   }, [loggedIn]);
 
   // Изменение информации о текущем пользователе при её обновлении
@@ -124,8 +125,20 @@ function App() {
                 handleLogout={handleLogout}
                 changeCurrentUser={changeCurrentUser}
               />} />
-            <Route path='/sign-up' element={<Registration handleLogin={handleLogin} />} />
-            <Route path='/sign-in' element={<Login handleLogin={handleLogin} />} />
+            <Route path='/sign-up' element={
+              <ProtectedAuthRoute
+                element={Registration}
+                handleLogin={handleLogin}
+                loggedIn={loggedIn}
+              />
+            } />
+            <Route path='/sign-in' element={
+              <ProtectedAuthRoute
+                element={Login}
+                handleLogin={handleLogin}
+                loggedIn={loggedIn}
+              />
+            } />
             <Route path='*' element={<NotFound />} />
           </Routes>
         </main>

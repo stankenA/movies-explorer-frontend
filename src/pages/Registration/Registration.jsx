@@ -3,8 +3,11 @@ import SignForm from '../../components/SignForm/SignForm';
 import { useFormWithValidation } from '../../hooks/useFormWithValidation';
 import Popup from '../../components/Popup/Popup';
 import * as auth from '../../utils/auth.js';
+import { useNavigate } from 'react-router-dom';
 
 export default function Registration({ handleLogin }) {
+
+  const navigate = useNavigate();
 
   const [isPopupOpened, setIsPopupOpened] = useState(false);
   const [popupMessage, setPopupMessage] = useState('');
@@ -22,6 +25,7 @@ export default function Registration({ handleLogin }) {
         const authorization = await auth.authorize(password, email);
         if (authorization.jwt) {
           handleLogin();
+          navigate('/movies', { replace: true });
         }
       }
     } catch (err) {

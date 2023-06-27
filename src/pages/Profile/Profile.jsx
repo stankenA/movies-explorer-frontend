@@ -10,13 +10,11 @@ export default function Profile({ handleLogout, changeCurrentUser }) {
   const currentUser = useContext(UserContext);
 
   const [isEditing, setIsEditing] = useState(false);
-  const [nameValue, setNameValue] = useState(currentUser.name);
-  const [emailValue, setEmailValue] = useState(currentUser.email);
   const [submitError, setSubmitError] = useState('');
   const [isLoading, setIsLoading] = useState(false);
-  const [isUnique, setIsUnique] = useState(false); // стейт для проверки отличия текущих данных в инпуте с новыми
+  const [isNewData, setIsNewData] = useState(false); // стейт для проверки отличия текущих данных в инпуте с новыми
 
-  const { values, handleChange, errors, isValid, setValues, resetForm } = useFormWithValidation();
+  const { values, handleChange, errors, isValid, setValues, resetForm } = useFormWithValidation(currentUser);
 
   // API
   const mainApi = new MainApi({
@@ -28,30 +26,20 @@ export default function Profile({ handleLogout, changeCurrentUser }) {
   });
 
   useEffect(() => {
-    setValues({ name: currentUser.name, email: currentUser.email })
-  }, []);
+    setValues({ name: currentUser.name, email: currentUser.email });
+  }, [currentUser]);
 
   function checkUnique() {
     if (currentUser.name === values.name && currentUser.email === values.email) {
-      setIsUnique(false);
+      setIsNewData(false);
     } else {
-      setIsUnique(true);
+      setIsNewData(true);
     }
   }
 
   useEffect(() => {
     checkUnique();
-  }, [values])
-
-  function handleNameChange(evt) {
-    setNameValue(evt.target.value);
-    handleChange(evt);
-  }
-
-  function handleEmailChange(evt) {
-    setEmailValue(evt.target.value);
-    handleChange(evt);
-  }
+  }, [values]);
 
   async function handleUpdateUser() {
     setIsLoading(true);
@@ -60,7 +48,7 @@ export default function Profile({ handleLogout, changeCurrentUser }) {
       changeCurrentUser(response);
       setIsEditing(false);
       setSubmitError('');
-      setIsUnique(false);
+      setIsNewData(false);
     } catch (err) {
       if (err.status === 409) {
         setSubmitError('Пользователь с таким email уже существует.');
@@ -94,8 +82,8 @@ export default function Profile({ handleLogout, changeCurrentUser }) {
               type="text"
               className={`profile__input profile__txt ${errors.name ? 'profile__input_errored' : ''}`}
               placeholder="Введите ваше имя"
-              value={nameValue}
-              onChange={handleNameChange}
+              value={values.name || ''}
+              onChange={handleChange}
               disabled={!isEditing}
               minLength={2}
               maxLength={30}
@@ -114,8 +102,8 @@ export default function Profile({ handleLogout, changeCurrentUser }) {
               type="email"
               className={`profile__input profile__txt ${errors.mail ? 'profile__input_errored' : ''}`}
               placeholder="Введите ваш e-mail"
-              value={emailValue}
-              onChange={handleEmailChange}
+              value={values.email || ''}
+              onChange={handleChange}
               disabled={!isEditing}
               required
             />
@@ -132,9 +120,9 @@ export default function Profile({ handleLogout, changeCurrentUser }) {
             <button
               form="profile"
               type="submit"
-              className={`profile__save ${isValid && isUnique ? 'profile__save_active' : ''}`}
+              className={`profile__save ${isValid && isNewData ? 'profile__save_active' : ''}`}
               onClick={saveNewInfo}
-              disabled={isValid && isUnique ? false : true}
+              disabled={isValid && isNewData ? false : true}
             >
               {isLoading ? 'Сохранение...' : 'Сохранить'}
             </button>
