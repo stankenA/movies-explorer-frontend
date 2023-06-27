@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Routes, Route, useLocation, useNavigate, Navigate } from 'react-router-dom';
+import { Routes, Route, useLocation, useNavigate } from 'react-router-dom';
 import '../../vendor/normalize.css';
 import '../../vendor/fonts/fonts.css';
 import './App.scss';
@@ -23,7 +23,6 @@ function App() {
 
   const [currentUser, setCurrentUser] = useState({});
   const [loggedIn, setLoggedIn] = useState(Boolean(localStorage.getItem('jwt')));
-  console.log(loggedIn);
 
   const navigate = useNavigate();
 

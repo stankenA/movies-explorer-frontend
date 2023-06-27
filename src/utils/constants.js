@@ -13,3 +13,24 @@ export const portfolioArr = [
     link: 'https://github.com/stankenA/react-mesto-auth',
   },
 ];
+
+export const currentYear = new Date().getFullYear();
+export const screenWidths = {
+  mobie: 320,
+  tablet: 768,
+  desktop: 1280,
+};
+export const visibleMoviesProps = {
+  desktop: {
+    visibleMovies: 12,
+    addableMovies: 3,
+  },
+  tablet: {
+    visibleMovies: 8,
+    addableMovies: 2,
+  },
+  mobile: {
+    visibleMovies: 5,
+    addableMovies: 2,
+  },
+};

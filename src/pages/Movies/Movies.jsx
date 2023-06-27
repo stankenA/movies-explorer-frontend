@@ -8,6 +8,7 @@ import { useResize } from '../../hooks/useResize';
 import { moviesApi } from '../../utils/api/MovieApi';
 import { filterMoviesByParams } from '../../utils/filter';
 import MainApi from '../../utils/api/MainApi';
+import { visibleMoviesProps } from '../../utils/constants';
 
 export default function Movies() {
 
@@ -162,18 +163,18 @@ export default function Movies() {
   useEffect(() => {
     if (isDesktop) {
       setVisibilityParams({
-        visbleMovies: 12,
-        addableMovies: 3,
+        visbleMovies: visibleMoviesProps.desktop.visibleMovies,
+        addableMovies: visibleMoviesProps.desktop.addableMovies,
       })
     } else if (isTablet) {
       setVisibilityParams({
-        visbleMovies: 8,
-        addableMovies: 2,
+        visbleMovies: visibleMoviesProps.tablet.visibleMovies,
+        addableMovies: visibleMoviesProps.tablet.addableMovies,
       })
     } else if (isMobile) {
       setVisibilityParams({
-        visbleMovies: 5,
-        addableMovies: 2,
+        visbleMovies: visibleMoviesProps.mobile.visibleMovies,
+        addableMovies: visibleMoviesProps.mobile.addableMovies,
       })
     }
   }, [isDesktop, isTablet, isMobile]);

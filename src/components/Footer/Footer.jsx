@@ -1,9 +1,9 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { currentYear } from '../../utils/constants';
 import './Footer.scss';
 
 export default function Footer() {
-  const currentYear = new Date().getFullYear();
 
   return (
     <footer className="footer">

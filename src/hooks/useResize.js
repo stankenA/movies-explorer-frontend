@@ -1,5 +1,7 @@
 import { useState, useEffect } from 'react';
 
+import { screenWidths } from '../utils/constants';
+
 export const useResize = () => {
   const [width, setWidth] = useState(window.innerWidth);
 
@@ -21,8 +23,8 @@ export const useResize = () => {
   }, []);
 
   return {
-    isMobile: width >= 320,
-    isTablet: width >= 768,
-    isDesktop: width >= 1280,
+    isMobile: width >= screenWidths.mobie,
+    isTablet: width >= screenWidths.tablet,
+    isDesktop: width >= screenWidths.desktop,
   };
 };
