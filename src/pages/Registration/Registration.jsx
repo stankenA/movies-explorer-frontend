@@ -15,7 +15,6 @@ export default function Registration({ handleLogin }) {
   async function signup(password, email, name) {
     try {
       const response = await auth.register(name, password, email);
-      console.log(response);
       if (response) {
         setIsSuccessfull(true);
         setPopupMessage('Вы успешно зарегистрировались!');

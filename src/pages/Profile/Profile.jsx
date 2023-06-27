@@ -14,6 +14,7 @@ export default function Profile({ handleLogout, changeCurrentUser }) {
   const [emailValue, setEmailValue] = useState(currentUser.email);
   const [submitError, setSubmitError] = useState('');
   const [isLoading, setIsLoading] = useState(false);
+  const [isUnique, setIsUnique] = useState(false); // стейт для проверки отличия текущих данных в инпуте с новыми
 
   const { values, handleChange, errors, isValid, setValues, resetForm } = useFormWithValidation();
 
@@ -29,6 +30,18 @@ export default function Profile({ handleLogout, changeCurrentUser }) {
   useEffect(() => {
     setValues({ name: currentUser.name, email: currentUser.email })
   }, []);
+
+  function checkUnique() {
+    if (currentUser.name === values.name && currentUser.email === values.email) {
+      setIsUnique(false);
+    } else {
+      setIsUnique(true);
+    }
+  }
+
+  useEffect(() => {
+    checkUnique();
+  }, [values])
 
   function handleNameChange(evt) {
     setNameValue(evt.target.value);
@@ -47,6 +60,7 @@ export default function Profile({ handleLogout, changeCurrentUser }) {
       changeCurrentUser(response);
       setIsEditing(false);
       setSubmitError('');
+      setIsUnique(false);
     } catch (err) {
       if (err.status === 409) {
         setSubmitError('Пользователь с таким email уже существует.');
@@ -118,9 +132,9 @@ export default function Profile({ handleLogout, changeCurrentUser }) {
             <button
               form="profile"
               type="submit"
-              className={`profile__save ${isValid ? 'profile__save_active' : ''}`}
+              className={`profile__save ${isValid && isUnique ? 'profile__save_active' : ''}`}
               onClick={saveNewInfo}
-              disabled={isValid ? false : true}
+              disabled={isValid && isUnique ? false : true}
             >
               {isLoading ? 'Сохранение...' : 'Сохранить'}
             </button>
