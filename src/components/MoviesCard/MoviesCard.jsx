@@ -68,7 +68,7 @@ export default function MoviesCard({ movie, title, duration, thumbnail, trailerL
     }
   }
 
-  async function deleteMovie() {
+  async function deleteMovie(movie) {
     try {
       await mainApi.deleteSavedMovie(movie._id);
       setIsLiked(false);
@@ -81,13 +81,13 @@ export default function MoviesCard({ movie, title, duration, thumbnail, trailerL
     if (!isLiked) {
       saveMovie(movie);
     } else if (isLiked) {
-      deleteMovie(movie.id);
+      deleteMovie(movie);
     }
   }
 
   function onDelete() {
-    deleteMovie(movie.movieId);
-    handleDelete(movie.movieId);
+    deleteMovie();
+    handleDelete(movie);
   }
 
   return (
