@@ -15,10 +15,15 @@ export default function Registration({ handleLogin }) {
   async function signup(password, email, name) {
     try {
       const response = await auth.register(name, password, email);
+      console.log(response);
       if (response) {
         setIsSuccessfull(true);
         setPopupMessage('Вы успешно зарегистрировались!');
-        handleLogin();
+
+        const authorization = await auth.authorize(password, email);
+        if (authorization.jwt) {
+          handleLogin();
+        }
       }
     } catch (err) {
       setIsSuccessfull(false);
