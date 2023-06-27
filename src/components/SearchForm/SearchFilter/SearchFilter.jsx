@@ -1,22 +1,29 @@
 import React, { useEffect, useState } from 'react';
 
 import './SearchFilter.scss';
+import { useLocation } from 'react-router-dom';
 
 export default function SearchFilter({ handleChange }) {
 
   const [isShortsChecked, setIsShortsChecked] = useState(false);
 
-  useEffect(() => {
-    const savedCheckbox = localStorage.getItem('isShortsChecked');
+  const location = useLocation();
 
-    if (savedCheckbox === 'true') {
-      setIsShortsChecked(true);
+  useEffect(() => {
+    if (location.pathname === '/movies') {
+      const savedCheckbox = localStorage.getItem('isShortsChecked');
+
+      if (savedCheckbox === 'true') {
+        setIsShortsChecked(true);
+      }
     }
   }, [])
 
   function changeShortsCheckbox(evt) {
     setIsShortsChecked(evt.target.checked);
-    localStorage.setItem('isShortsChecked', evt.target.checked);
+    if (location.pathname === '/movies') {
+      localStorage.setItem('isShortsChecked', evt.target.checked);
+    }
     handleChange(evt);
   }
 

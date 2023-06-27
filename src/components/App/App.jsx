@@ -64,7 +64,7 @@ function App() {
 
   function handleLogout() {
     navigate('/', { replace: true });
-    localStorage.removeItem('jwt');
+    localStorage.clear();
     setLoggedIn(false);
   }
 

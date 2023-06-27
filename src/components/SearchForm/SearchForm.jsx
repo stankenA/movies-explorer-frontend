@@ -4,19 +4,23 @@ import './SearchForm.scss';
 import SearchFilter from './SearchFilter/SearchFilter';
 
 import errorIcon from '../../images/error-icon.svg';
+import { useLocation } from 'react-router-dom';
 
 export default function SearchForm({ handleChange, handleSubmit }) {
 
   const [isErrored, setIsErrored] = useState(false);
   const [searchValue, setSearchValue] = useState('');
 
+  const location = useLocation();
+
   useEffect(() => {
-    const savedSearch = localStorage.getItem('search');
+    if (location.pathname === '/movies') {
+      const savedSearch = localStorage.getItem('search');
 
-    if (savedSearch) {
-      setSearchValue(savedSearch);
-    };
-
+      if (savedSearch) {
+        setSearchValue(savedSearch);
+      }
+    }
   }, []);
 
   function changeSearchValue(evt) {
@@ -26,11 +30,13 @@ export default function SearchForm({ handleChange, handleSubmit }) {
   }
 
   function submitSearch(evt) {
-    if (searchValue === '') {
+    if (searchValue === '' && location.pathname === '/movies') {
       setIsErrored(true);
       return;
     } else {
-      localStorage.setItem('search', searchValue);
+      if (location.pathname === '/movies') {
+        localStorage.setItem('search', searchValue);
+      }
       handleSubmit(evt);
     }
   }

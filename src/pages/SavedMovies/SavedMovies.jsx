@@ -32,20 +32,6 @@ export default function Movies() {
     }
   });
 
-  // Собираем данные из локального хранилища, если они там есть
-  function collectLocalData() {
-    const savedSearch = localStorage.getItem('search');
-    const savedCheckbox = localStorage.getItem('isShortsChecked');
-
-    if (savedSearch) {
-      setValues({ search: savedSearch, shortsCheckbox: values.shortsCheckbox });
-    }
-
-    if (savedCheckbox) {
-      savedCheckbox === 'true' ? values.shortsCheckbox = true : values.shortsCheckbox = false;
-    }
-  }
-
   // Запрос всех сохранённых фильмов с сервера
   async function fetchSavedMovies() {
     setIsLoading(true);
@@ -57,7 +43,6 @@ export default function Movies() {
     try {
       const response = await mainApi.getSavedMovies();
       setInitialMovies(response);
-      localStorage.setItem('saved-movies', JSON.stringify(response));
     } catch (error) {
       setPlaceholder({
         isShown: true,
@@ -90,9 +75,6 @@ export default function Movies() {
       message: '',
     });
 
-    // Сохраняем их в локальном хранилище
-    localStorage.setItem('saved-movies', JSON.stringify(filteredMovies));
-
     // Отрисовываем их на клиенте
     setVisibleMovies([...filteredMovies]);
   }
@@ -103,17 +85,10 @@ export default function Movies() {
     filterMovies();
   }
 
-  // Фильтрация фильмов, если они есть в хранилище и повторная фильтрация при изменении зависимостей
+  // Повторная фильтрация при изменении зависимостей
   useEffect(() => {
-    if (localStorage.getItem('saved-movies')) {
-      filterMovies();
-    }
+    filterMovies();
   }, [values.shortsCheckbox, initialMovies]);
-
-  // Сбор локальных данных
-  useEffect(() => {
-    collectLocalData();
-  }, []);
 
   // Функция удаления карточки из отрисованных фильмов
   function handleCardDelete(movieId) {
