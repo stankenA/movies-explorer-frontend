@@ -21,10 +21,10 @@ export default function MoviesCard({ movie, title, duration, thumbnail, trailerL
     }
   });
 
-  function checkIsLiked(id) {
+  function checkIsLiked(nameRU) {
     if (savedMoviesArr) {
       return savedMoviesArr.some((movie) => {
-        return movie.movieId === id;
+        return movie.nameRU === nameRU;
       })
     }
 
@@ -32,7 +32,7 @@ export default function MoviesCard({ movie, title, duration, thumbnail, trailerL
   }
 
   function handleLikeChange() {
-    const isLiked = checkIsLiked(movie.id);
+    const isLiked = checkIsLiked(movie.nameRU);
 
     if (isLiked) {
       setIsLiked(true)
@@ -71,7 +71,8 @@ export default function MoviesCard({ movie, title, duration, thumbnail, trailerL
   async function deleteMovie(savedMovie) {
     try {
       const response = await mainApi.getSavedMovies();
-      const movieForDeletion = response.filter((item) => item.nameRU === savedMovie.nameRU)[0];
+      console.log(response);
+      const movieForDeletion = response.filter((item) => item.movieId === (savedMovie.id || savedMovie.movieId))[0];
       await mainApi.deleteSavedMovie(movieForDeletion._id);
       setIsLiked(false);
     } catch (err) {
