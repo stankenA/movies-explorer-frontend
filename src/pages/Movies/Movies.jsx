@@ -60,7 +60,6 @@ export default function Movies() {
     if (storedMovies) {
       setPlaceholder({ isShown: false, message: '' });
       setInitialMovies(JSON.parse(storedMovies));
-      setIsFirstFetch(false);
     }
   }
 

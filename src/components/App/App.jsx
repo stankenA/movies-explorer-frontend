@@ -63,6 +63,7 @@ function App() {
 
         if (response) {
           setCurrentUser({
+            _id: response._id,
             name: response.name,
             email: response.email
           });

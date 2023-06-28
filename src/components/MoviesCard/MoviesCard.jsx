@@ -1,16 +1,19 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import { useLocation, Link } from 'react-router-dom';
 
 import './MoviesCard.scss';
 import MoviesCardSaveBtn from './MoviesCardSaveBtn/MoviesCardSaveBtn';
 import MoviesCardDeleteBtn from './MoviesCardDeleteBtn/MoviesCardDeleteBtn';
 import MainApi from '../../utils/api/MainApi';
+import { UserContext } from '../../contexts/CurrentUserContext';
 
 export default function MoviesCard({ movie, title, duration, thumbnail, trailerLink, handleDelete, savedMoviesArr }) {
 
   const location = useLocation();
   const isSavedMoviesPage = location.pathname === '/saved-movies';
   const [isLiked, setIsLiked] = useState(false);
+
+  const currentUser = useContext(UserContext);
 
   // API
   const mainApi = new MainApi({
@@ -21,10 +24,10 @@ export default function MoviesCard({ movie, title, duration, thumbnail, trailerL
     }
   });
 
-  function checkIsLiked(nameRU) {
+  function checkIsLiked(movieId) {
     if (savedMoviesArr) {
       return savedMoviesArr.some((movie) => {
-        return movie.nameRU === nameRU;
+        return movie.movieId === movieId;
       })
     }
 
@@ -32,7 +35,7 @@ export default function MoviesCard({ movie, title, duration, thumbnail, trailerL
   }
 
   function handleLikeChange() {
-    const isLiked = checkIsLiked(movie.nameRU);
+    const isLiked = checkIsLiked(movie.id);
 
     if (isLiked) {
       setIsLiked(true)
@@ -68,11 +71,12 @@ export default function MoviesCard({ movie, title, duration, thumbnail, trailerL
     }
   }
 
-  async function deleteMovie(savedMovie) {
+  async function deleteMovie(movie) {
     try {
       const response = await mainApi.getSavedMovies();
-      console.log(response);
-      const movieForDeletion = response.filter((item) => item.movieId === (savedMovie.id || savedMovie.movieId))[0];
+      const movieForDeletion = response.filter((item) => {
+        return (item.owner._id === currentUser._id) && (item.movieId === (movie.id || movie.movieId))
+      })[0];
       await mainApi.deleteSavedMovie(movieForDeletion._id);
       setIsLiked(false);
     } catch (err) {
