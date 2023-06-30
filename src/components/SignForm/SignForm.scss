@@ -40,6 +40,7 @@
   &__form {
     display: flex;
     flex-direction: column;
+    width: 100%;
   }
 
   &__fieldset {
@@ -50,6 +51,16 @@
 
     @media screen and (max-width: 767px) {
       margin-bottom: 158px;
+    }
+  }
+
+  &__row {
+    width: 100%;
+    margin-bottom: 24px;
+    position: relative;
+
+    @media screen and (max-width: 767px) {
+      margin-bottom: 24px;
     }
   }
 
@@ -73,10 +84,9 @@
     font-size: 13px;
     line-height: 16px;
     color: var(--color-white);
-    margin-bottom: 20px;
 
-    @media screen and (max-width: 767px) {
-      margin-bottom: 17px;
+    &_errored {
+      color: var(--color-pink);
     }
   }
 
@@ -87,7 +97,15 @@
     line-height: 12px;
     color: var(--color-pink);
     position: absolute;
-    top: 95%;
+    top: 110%;
+    left: 0;
+    opacity: 0;
+    visibility: hidden;
+
+    &_active {
+      opacity: 1;
+      visibility: visible;
+    }
 
     @media screen and (max-width: 767px) {}
   }
@@ -97,12 +115,21 @@
     width: 100%;
     height: 45px;
     border-radius: 3px;
-    background-color: var(--color-blue);
-    color: var(--color-white);
     font-weight: 500;
     font-size: 14px;
     line-height: 17px;
     @include transition;
+    background-color: #313131;
+    color: var(--color-grey);
+    user-select: none;
+    pointer-events: none;
+
+    &_active {
+      background-color: var(--color-blue);
+      color: var(--color-white);
+      user-select: all;
+      pointer-events: all;
+    }
 
     &:hover {
       opacity: .7;
@@ -122,6 +149,11 @@
     line-height: 17px;
     margin: 0;
     color: var(--color-grey);
+
+    @media screen and (max-width: 767px) {
+      font-size: 12px;
+      line-height: 15px;
+    }
   }
 
   &__link {

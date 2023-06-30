@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Link, useLocation } from 'react-router-dom';
 
 import HeaderAuth from './HeaderAuth/HeaderAuth';
@@ -7,9 +7,7 @@ import HeaderNav from './HeaderNav/HeaderNav';
 import './Header.scss';
 import logo from '../../images/logo.svg';
 
-export default function Header() {
-
-  const [loggedIn, setLoggedIn] = useState(true);
+export default function Header({ loggedIn }) {
 
   const location = useLocation();
   const isMainPage = location.pathname === '/';

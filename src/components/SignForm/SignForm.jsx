@@ -1,10 +1,30 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 
 import './SignForm.scss';
 import logo from '../../images/logo.svg';
 
-export default function SignForm({ isRegistration }) {
+export default function SignForm({ isRegistration, handleChange, errors, isValid, onSubmit }) {
+
+  const [nameValue, setNameValue] = useState('');
+  const [emailValue, setEmailValue] = useState('');
+  const [passwordValue, setPasswordValue] = useState('');
+
+  function handleNameChange(evt) {
+    setNameValue(evt.target.value);
+    handleChange(evt);
+  }
+
+  function handleEmailChange(evt) {
+    setEmailValue(evt.target.value);
+    handleChange(evt);
+  }
+
+  function handlePasswordChange(evt) {
+    setPasswordValue(evt.target.value);
+    handleChange(evt);
+  }
+
   return (
     <section className="sign">
       <div className="sign__wrapper">
@@ -14,28 +34,71 @@ export default function SignForm({ isRegistration }) {
         <h1 className="sign__title">
           {isRegistration ? 'Добро пожаловать!' : 'Рады видеть!'}
         </h1>
-        <form className="sign__form">
+        <form className="sign__form" onSubmit={onSubmit}>
           <fieldset className="sign__fieldset">
             {isRegistration &&
-              <>
+              <div className="sign__row">
                 <label htmlFor="name" className="sign__label">Имя</label>
-                <input id="name" name="name" type="text" className="sign__input" required />
-              </>
+                <input
+                  id="name"
+                  name="name"
+                  type="text"
+                  className={`sign__input ${errors.name === '' ? '' : 'sign__input_errored'}`}
+                  required
+                  value={nameValue}
+                  onChange={handleNameChange}
+                  minLength={2}
+                  maxLength={30}
+                />
+                <span className={`sign__error ${isValid ? '' : 'sign__error_active'}`}>
+                  {errors.name}
+                </span>
+              </div>
+
             }
-            <label htmlFor="email" className="sign__label">E-mail</label>
-            <input id="email" name="email" type="email" className="sign__input" required />
-            <label htmlFor="password" className="sign__label">Пароль</label>
-            <input id="password" name="password" type="password" className="sign__input" required />
-            <p className="sign__error">
-              Что-то пошло не так...
-            </p>
+            <div className="sign__row">
+              <label htmlFor="email" className="sign__label">E-mail</label>
+              <input
+                id="email"
+                name="email"
+                type="email"
+                className={`sign__input ${errors.email === '' ? '' : 'sign__input_errored'}`}
+                required
+                value={emailValue}
+                onChange={handleEmailChange}
+              />
+              <span className={`sign__error ${isValid ? '' : 'sign__error_active'}`}>
+                {errors.email}
+              </span>
+            </div>
+            <div className="sign__row">
+              <label htmlFor="password" className="sign__label">Пароль</label>
+              <input
+                id="password"
+                name="password"
+                type="password"
+                className={`sign__input ${errors.password === '' ? '' : 'sign__input_errored'}`}
+                required
+                value={passwordValue}
+                onChange={handlePasswordChange}
+              />
+              <span className={`sign__error ${isValid ? '' : 'sign__error_active'}`}>
+                {errors.password}
+              </span>
+            </div>
           </fieldset>
           <div className="sign__bottom">
             {isRegistration
-              ? <button type="submit" className="sign__btn">
+              ? <button type="submit"
+                disabled={isValid ? false : true}
+                className={`sign__btn ${isValid ? 'sign__btn_active' : ''}`}
+              >
                 Зарегистрироваться
               </button>
-              : <button type="submit" className="sign__btn">
+              : <button
+                type="submit"
+                disabled={isValid ? false : true}
+                className={`sign__btn ${isValid ? 'sign__btn_active' : ''}`}>
                 Войти
               </button>
             }
