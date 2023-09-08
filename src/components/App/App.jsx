@@ -18,6 +18,7 @@ import { UserContext } from '../../contexts/CurrentUserContext';
 import MainApi from '../../utils/api/MainApi';
 import ProtectedRoute from '../ProtectedRoute/ProtectedRoute';
 import ProtectedAuthRoute from '../ProtectedAuthRoute/ProtectedAuthRoute';
+import { BASE_URL } from '../../utils/constants';
 
 function App() {
 
@@ -35,7 +36,7 @@ function App() {
 
   // API
   const mainApi = new MainApi({
-    url: 'https://api.movies-exporer.nomoredomains.rocks',
+    url: BASE_URL,
     headers: {
       'Content-Type': 'application/json',
       'Authorization': `Bearer ${localStorage.getItem('jwt')}`

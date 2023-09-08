@@ -6,6 +6,7 @@ import Preloader from '../../components/Preloader/Preloader';
 import { useForm } from '../../hooks/useForm';
 import MainApi from '../../utils/api/MainApi';
 import { filterMoviesByParams } from '../../utils/filter';
+import { BASE_URL } from '../../utils/constants';
 
 export default function Movies() {
 
@@ -25,7 +26,7 @@ export default function Movies() {
 
   // API
   const mainApi = new MainApi({
-    url: 'https://api.movies-exporer.nomoredomains.rocks',
+    url: BASE_URL,
     headers: {
       'Content-Type': 'application/json',
       'Authorization': `Bearer ${localStorage.getItem('jwt')}`

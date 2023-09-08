@@ -4,6 +4,7 @@ import { UserContext } from '../../contexts/CurrentUserContext';
 import MainApi from '../../utils/api/MainApi';
 
 import './Profile.scss';
+import { BASE_URL } from '../../utils/constants';
 
 export default function Profile({ handleLogout, changeCurrentUser }) {
 
@@ -18,7 +19,7 @@ export default function Profile({ handleLogout, changeCurrentUser }) {
 
   // API
   const mainApi = new MainApi({
-    url: 'https://api.movies-exporer.nomoredomains.rocks',
+    url: BASE_URL,
     headers: {
       'Content-Type': 'application/json',
       'Authorization': `Bearer ${localStorage.getItem('jwt')}`

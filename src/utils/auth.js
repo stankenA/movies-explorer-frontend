@@ -1,4 +1,4 @@
-export const BASE_URL = 'https://api.movies-exporer.nomoredomains.rocks';
+import { BASE_URL } from "./constants";
 
 function checkResponse(res) {
   if (res.ok) {

@@ -6,6 +6,7 @@ import MoviesCardSaveBtn from './MoviesCardSaveBtn/MoviesCardSaveBtn';
 import MoviesCardDeleteBtn from './MoviesCardDeleteBtn/MoviesCardDeleteBtn';
 import MainApi from '../../utils/api/MainApi';
 import { UserContext } from '../../contexts/CurrentUserContext';
+import { BASE_URL } from '../../utils/constants';
 
 export default function MoviesCard({ movie, title, duration, thumbnail, trailerLink, handleDelete, savedMoviesArr }) {
 
@@ -17,7 +18,7 @@ export default function MoviesCard({ movie, title, duration, thumbnail, trailerL
 
   // API
   const mainApi = new MainApi({
-    url: 'https://api.movies-exporer.nomoredomains.rocks',
+    url: BASE_URL,
     headers: {
       'Content-Type': 'application/json',
       'Authorization': `Bearer ${localStorage.getItem('jwt')}`
