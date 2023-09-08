@@ -2,7 +2,8 @@
 
 Представляет собой сервис по поиску фильмов с возможностью их сохранения. 
 
-<img src="http://g.recordit.co/IHdc8Beq8p.gif">
+![image](https://github.com/stankenA/movies-explorer-frontend/assets/82235915/baf069fc-b238-455c-92a4-bd933329e3ca)
+
 
 ## Описание 
 
