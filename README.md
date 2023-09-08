@@ -26,7 +26,8 @@
 
 ### Ссылки
 
-- Ссылка на задеплоиный фронтенд на сервере: https://movies-exporer.nomoredomains.rocks
 - Ссылка на макет: https://disk.yandex.ru/d/tYi4iNLoz4Mj8Q
 - Ссылка на бэкенд версию: https://github.com/stankenA/movies-explorer-api
+
+- Ссылка на задеплоиный фронтенд на сервере: https://movies-exporer.nomoredomains.rocks (временно недоступно)
 - Публичный IP-адрес сервера: 84.201.135.206
