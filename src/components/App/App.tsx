@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, FC } from 'react';
 import { Routes, Route, useLocation, useNavigate } from 'react-router-dom';
 import '../../vendor/normalize.css';
 import '../../vendor/fonts/fonts.css';
@@ -19,10 +19,15 @@ import MainApi from '../../utils/api/MainApi';
 import ProtectedRoute from '../ProtectedRoute/ProtectedRoute';
 import ProtectedAuthRoute from '../ProtectedAuthRoute/ProtectedAuthRoute';
 import { BASE_URL } from '../../utils/constants';
+import { TCurrentUser } from '../../utils/types/types';
 
-function App() {
+const App: FC = () => {
 
-  const [currentUser, setCurrentUser] = useState({});
+  const [currentUser, setCurrentUser] = useState<TCurrentUser>({
+    _id: '',
+    name: '',
+    email: '',
+  });
   const [loggedIn, setLoggedIn] = useState(Boolean(localStorage.getItem('jwt')));
 
   const navigate = useNavigate();
@@ -96,7 +101,7 @@ function App() {
   }, [loggedIn]);
 
   // Изменение информации о текущем пользователе при её обновлении
-  function changeCurrentUser(data) {
+  function changeCurrentUser(data: TCurrentUser) {
     setCurrentUser(data)
   }
 

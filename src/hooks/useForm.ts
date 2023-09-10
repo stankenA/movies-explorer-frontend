@@ -1,9 +1,14 @@
 import { useState } from "react";
 
-export function useForm(inputValues) {
+type TUseFormValues = {
+  search: string
+  shortsCheckbox: boolean
+}
+
+export function useForm(inputValues: TUseFormValues) {
   const [values, setValues] = useState(inputValues);
 
-  const handleChange = (evt) => {
+  const handleChange = (evt: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value, type, checked } = evt.target;
     setValues({
       ...values,

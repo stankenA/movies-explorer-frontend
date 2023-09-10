@@ -1,8 +1,8 @@
-import React from 'react';
+import React, { FC } from 'react';
 
 import './AboutProject.scss';
 
-export default function AboutProject() {
+const AboutProject: FC = () => {
   return (
     <section className="project">
       <div className="project__wrapper">
@@ -48,4 +48,6 @@ export default function AboutProject() {
       </div>
     </section>
   )
-}
+};
+
+export default AboutProject;

@@ -1,8 +1,9 @@
-import React from 'react';
+import React, { FC } from 'react';
 
 import './MoviesCardSaveBtn.scss';
+import { TMoviesCardSaveBtnProps } from '../../../utils/types/types';
 
-export default function MoviesCardSaveBtn({ onLike, isLiked }) {
+const MoviesCardSaveBtn: FC<TMoviesCardSaveBtnProps> = ({ onLike, isLiked }) => {
 
   return (
     <button
@@ -23,4 +24,6 @@ export default function MoviesCardSaveBtn({ onLike, isLiked }) {
       </svg>
     </button>
   )
-}
+};
+
+export default MoviesCardSaveBtn;

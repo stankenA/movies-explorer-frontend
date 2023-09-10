@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, FC } from 'react';
 import SearchForm from '../../components/SearchForm/SearchForm';
 import MoviesCardList from '../../components/MoviesCardList/MoviesCardList';
 import Preloader from '../../components/Preloader/Preloader';
@@ -9,14 +9,15 @@ import { moviesApi } from '../../utils/api/MovieApi';
 import { filterMoviesByParams } from '../../utils/filter';
 import MainApi from '../../utils/api/MainApi';
 import { BASE_URL, visibleMoviesProps } from '../../utils/constants';
+import { TInitialMovie, TMovie } from '../../utils/types/types';
 
-export default function Movies() {
+const Movies: FC = () => {
 
   const [isLoading, setIsLoading] = useState(false);
   const [isFirstFetch, setIsFirstFetch] = useState(true);
-  const [initialMovies, setInitialMovies] = useState([]);
-  const [visibleMovies, setVisibleMovies] = useState([]);
-  const [savedMovies, setSavedMovies] = useState([]); // Необходим для проверки, есть у карточки лайк
+  const [initialMovies, setInitialMovies] = useState<TInitialMovie[] | []>([]);
+  const [visibleMovies, setVisibleMovies] = useState<TMovie[] | []>([]);
+  const [savedMovies, setSavedMovies] = useState<TMovie[] | []>([]); // Необходим для проверки, есть у карточки лайк
   const [placeholder, setPlaceholder] = useState({ // Плейсхолдер для сообщений пользователю
     isShown: true,
     message: 'Наливайте чай, доставайте печеньки и ищите фильм!'
@@ -73,9 +74,13 @@ export default function Movies() {
 
     try {
       const response = await moviesApi.getInitialMovies();
+      response.forEach((item: TInitialMovie) => {
+        item.image = `https://api.nomoreparties.co${item.image.url}`;
+      });
       setInitialMovies(response);
       localStorage.setItem('movies', JSON.stringify(response));
     } catch (error) {
+      console.log(error);
       setPlaceholder({
         isShown: true,
         message: 'Во время запроса произошла ошибка. Возможно, проблема с соединением или сервер недоступен. Подождите немного и попробуйте ещё раз'
@@ -93,6 +98,10 @@ export default function Movies() {
         setSavedMovies(response);
       } catch (err) {
         console.log(err);
+        setPlaceholder({
+          isShown: true,
+          message: 'Во время запроса произошла ошибка. Возможно, проблема с соединением или сервер недоступен. Подождите немного и попробуйте ещё раз'
+        });
       }
     }
 
@@ -101,7 +110,7 @@ export default function Movies() {
 
   // Функция фильтрации фильмов
   function filterMovies() {
-    const filteredMovies = filterMoviesByParams(initialMovies, values.search, values.shortsCheckbox);
+    const filteredMovies: TMovie[] | [] = filterMoviesByParams(initialMovies, values.search, values.shortsCheckbox);
 
     if (filteredMovies.length === 0) {
       setPlaceholder({
@@ -132,7 +141,7 @@ export default function Movies() {
   }
 
   // Сабмит при нажатии на кнопку поиска
-  function handleSubmit(evt) {
+  function handleSubmit(evt: React.FormEvent<HTMLFormElement>) {
     evt.preventDefault();
 
     if (isFirstFetch) {
@@ -207,4 +216,6 @@ export default function Movies() {
       }
     </>
   )
-}
+};
+
+export default Movies;

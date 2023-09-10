@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useContext } from 'react';
+import React, { useEffect, useState, useContext, FC } from 'react';
 import { useLocation, Link } from 'react-router-dom';
 
 import './MoviesCard.scss';
@@ -7,8 +7,17 @@ import MoviesCardDeleteBtn from './MoviesCardDeleteBtn/MoviesCardDeleteBtn';
 import MainApi from '../../utils/api/MainApi';
 import { UserContext } from '../../contexts/CurrentUserContext';
 import { BASE_URL } from '../../utils/constants';
+import { TMovie, TMoviesCardProps } from '../../utils/types/types';
 
-export default function MoviesCard({ movie, title, duration, thumbnail, trailerLink, handleDelete, savedMoviesArr }) {
+const MoviesCard: FC<TMoviesCardProps> = ({
+  movie,
+  title,
+  duration,
+  thumbnail,
+  trailerLink,
+  handleDelete,
+  savedMoviesArr
+}) => {
 
   const location = useLocation();
   const isSavedMoviesPage = location.pathname === '/saved-movies';
@@ -25,7 +34,7 @@ export default function MoviesCard({ movie, title, duration, thumbnail, trailerL
     }
   });
 
-  function checkIsLiked(movieId) {
+  function checkIsLiked(movieId: number) {
     if (savedMoviesArr) {
       return savedMoviesArr.some((movie) => {
         return movie.movieId === movieId;
@@ -36,8 +45,11 @@ export default function MoviesCard({ movie, title, duration, thumbnail, trailerL
   }
 
   function handleLikeChange() {
-    const isLiked = checkIsLiked(movie.id);
+    if (!movie.id) {
+      return;
+    }
 
+    const isLiked = checkIsLiked(movie.id);
     if (isLiked) {
       setIsLiked(true)
     } else {
@@ -49,18 +61,18 @@ export default function MoviesCard({ movie, title, duration, thumbnail, trailerL
     handleLikeChange()
   }, [savedMoviesArr]);
 
-  async function saveMovie(movie) {
+  async function saveMovie(movie: TMovie) {
     const movieObj = {
       country: movie.country,
       director: movie.director,
       duration: movie.duration,
       year: movie.year,
       description: movie.description,
-      image: `https://api.nomoreparties.co/${movie.image.url}`,
+      image: movie.image,
       trailerLink: movie.trailerLink,
       nameRU: movie.nameRU,
       nameEN: movie.nameEN,
-      thumbnail: `https://api.nomoreparties.co/${movie.image.url}`,
+      thumbnail: movie.image,
       movieId: movie.id,
     };
 
@@ -72,10 +84,14 @@ export default function MoviesCard({ movie, title, duration, thumbnail, trailerL
     }
   }
 
-  async function deleteMovie(movie) {
+  async function deleteMovie(movie: TMovie) {
     try {
       const response = await mainApi.getSavedMovies();
-      const movieForDeletion = response.filter((item) => {
+      const movieForDeletion = response.filter((item: TMovie) => {
+        if (!item.owner?._id) {
+          throw new Error('Ошибка в поиске владельца фильма')
+        }
+
         return (item.owner._id === currentUser._id) && (item.movieId === (movie.id || movie.movieId))
       })[0];
       await mainApi.deleteSavedMovie(movieForDeletion._id);
@@ -118,4 +134,6 @@ export default function MoviesCard({ movie, title, duration, thumbnail, trailerL
       </Link>
     </li>
   )
-}
+};
+
+export default MoviesCard;

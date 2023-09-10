@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { FC } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 
 import HeaderAuth from './HeaderAuth/HeaderAuth';
@@ -7,7 +7,7 @@ import HeaderNav from './HeaderNav/HeaderNav';
 import './Header.scss';
 import logo from '../../images/logo.svg';
 
-export default function Header({ loggedIn }) {
+const Header: FC<{ loggedIn: boolean }> = ({ loggedIn }) => {
 
   const location = useLocation();
   const isMainPage = location.pathname === '/';
@@ -25,4 +25,6 @@ export default function Header({ loggedIn }) {
       </div>
     </header>
   )
-}
+};
+
+export default Header;

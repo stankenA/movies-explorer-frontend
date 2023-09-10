@@ -1,18 +1,18 @@
-import React, { useState } from 'react';
+import React, { FC, useState } from 'react';
 import { Link, NavLink } from 'react-router-dom';
 
 import './HeaderNav.scss';
 
-export default function HeaderNav() {
+const HeaderNav: FC = () => {
 
   const [isMobileOpened, setIsMobileOpened] = useState(false);
 
   function openMenu() {
-    setIsMobileOpened(true)
+    setIsMobileOpened(true);
   }
 
   function closeMenu() {
-    setIsMobileOpened(false)
+    setIsMobileOpened(false);
   }
 
   return (
@@ -62,4 +62,6 @@ export default function HeaderNav() {
       <button type="button" className="header__hamburger" onClick={openMenu}></button>
     </>
   )
-}
+};
+
+export default HeaderNav;

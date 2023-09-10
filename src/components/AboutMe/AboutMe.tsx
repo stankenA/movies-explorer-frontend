@@ -1,11 +1,11 @@
-import React from 'react';
+import React, { FC } from 'react';
 import { Link } from 'react-router-dom';
 import './AboutMe.scss';
 
 import aboutImg from '../../images/about-img.jpg';
 import Portfolio from '../Portfolio/Portfolio';
 
-export default function AboutMe() {
+const AboutMe: FC = () => {
   return (
     <section className="about">
       <div className="about__wrapper">
@@ -34,4 +34,6 @@ export default function AboutMe() {
       </div>
     </section>
   )
-}
+};
+
+export default AboutMe;

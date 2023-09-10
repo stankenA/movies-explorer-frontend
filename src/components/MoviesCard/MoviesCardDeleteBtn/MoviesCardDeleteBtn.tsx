@@ -1,8 +1,8 @@
-import React from 'react';
+import React, { FC } from 'react';
 
 import './MoviesCardDeleteBtn.scss';
 
-export default function MoviesCardDeleteBtn({ onClick }) {
+const MoviesCardDeleteBtn: FC<{ onClick: () => void }> = ({ onClick }) => {
   return (
     <button
       type="button"
@@ -11,4 +11,6 @@ export default function MoviesCardDeleteBtn({ onClick }) {
     >
     </button>
   )
-}
+};
+
+export default MoviesCardDeleteBtn;

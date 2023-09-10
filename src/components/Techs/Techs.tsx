@@ -1,9 +1,9 @@
-import React from 'react';
+import React, { FC } from 'react';
 import { techsArr } from '../../utils/constants';
 
 import './Techs.scss';
 
-export default function Techs() {
+const Techs: FC = () => {
 
   return (
     <section className="techs">
@@ -29,4 +29,6 @@ export default function Techs() {
       </div>
     </section>
   )
-}
+};
+
+export default Techs;

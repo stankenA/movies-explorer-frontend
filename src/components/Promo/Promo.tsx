@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import './Promo.scss';
 import bannerPicture from '../../images/promo.png';
 
-export default function Promo() {
+const Promo = () => {
   return (
     <section className="promo">
       <div className="promo__wrapper">
@@ -23,4 +23,6 @@ export default function Promo() {
       </div>
     </section>
   )
-}
+};
+
+export default Promo;

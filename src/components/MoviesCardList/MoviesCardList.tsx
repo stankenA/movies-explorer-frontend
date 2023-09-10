@@ -1,9 +1,16 @@
-import React from 'react';
+import React, { FC } from 'react';
 import MoviesCard from '../MoviesCard/MoviesCard';
 
 import './MoviesCardList.scss';
+import { TMoviesCardListProps } from '../../utils/types/types';
 
-export default function MoviesCardList({ moviesArr, savedMoviesArr, isMoreBtnVisible, handleMoreBtn, handleDelete }) {
+const MoviesCardList: FC<TMoviesCardListProps> = ({
+  moviesArr,
+  savedMoviesArr,
+  isMoreBtnVisible,
+  handleMoreBtn,
+  handleDelete
+}) => {
 
   return (
     <section className="movies">
@@ -14,11 +21,11 @@ export default function MoviesCardList({ moviesArr, savedMoviesArr, isMoreBtnVis
               movie={movie}
               title={movie.nameRU}
               duration={movie.duration}
-              thumbnail={movie.image.url ? `https://api.nomoreparties.co/${movie.image.url}` : movie.image}
+              thumbnail={movie.image}
               trailerLink={movie.trailerLink}
-              handleDelete={handleDelete}
+              handleDelete={handleDelete!}
               key={movie.id || movie.movieId}
-              savedMoviesArr={savedMoviesArr}
+              savedMoviesArr={savedMoviesArr!}
             />
           ))}
         </ul>
@@ -33,4 +40,6 @@ export default function MoviesCardList({ moviesArr, savedMoviesArr, isMoreBtnVis
       </div>
     </section>
   )
-}
+};
+
+export default MoviesCardList;

@@ -1,9 +1,9 @@
-import React from 'react';
+import React, { FC } from 'react';
 import { Link } from 'react-router-dom';
 import { currentYear } from '../../utils/constants';
 import './Footer.scss';
 
-export default function Footer() {
+const Footer: FC = () => {
 
   return (
     <footer className="footer">
@@ -29,4 +29,6 @@ export default function Footer() {
       </div>
     </footer>
   )
-}
+};
+
+export default Footer;

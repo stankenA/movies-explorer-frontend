@@ -7,12 +7,13 @@ import { useForm } from '../../hooks/useForm';
 import MainApi from '../../utils/api/MainApi';
 import { filterMoviesByParams } from '../../utils/filter';
 import { BASE_URL } from '../../utils/constants';
+import { TInitialMovie, TMovie } from '../../utils/types/types';
 
 export default function Movies() {
 
   const [isLoading, setIsLoading] = useState(false);
-  const [initialMovies, setInitialMovies] = useState([]);
-  const [visibleMovies, setVisibleMovies] = useState([]);
+  const [initialMovies, setInitialMovies] = useState<TInitialMovie[] | []>([]);
+  const [visibleMovies, setVisibleMovies] = useState<TMovie[] | []>([]);
   const [placeholder, setPlaceholder] = useState({ // Плейсхолдер для сообщений пользователю
     isShown: true,
     message: 'Наливайте чай, доставайте печеньки и ищите фильм!'
@@ -60,7 +61,7 @@ export default function Movies() {
 
   // Функция фильтрации фильмов
   function filterMovies() {
-    const filteredMovies = filterMoviesByParams(initialMovies, values.search, values.shortsCheckbox);
+    const filteredMovies: TMovie[] | [] = filterMoviesByParams(initialMovies, values.search, values.shortsCheckbox);
 
     if (filteredMovies.length === 0) {
       setPlaceholder({
@@ -81,7 +82,7 @@ export default function Movies() {
   }
 
   // Сабмит при нажатии на кнопку поиска
-  function handleSubmit(evt) {
+  function handleSubmit(evt: React.FormEvent<HTMLFormElement>) {
     evt.preventDefault();
     filterMovies();
   }
@@ -92,7 +93,7 @@ export default function Movies() {
   }, [values.shortsCheckbox, initialMovies]);
 
   // Функция удаления карточки из отрисованных фильмов
-  function handleCardDelete(savedMovie) {
+  function handleCardDelete(savedMovie: TMovie) {
     const newArr = visibleMovies.filter((movie) => movie._id !== savedMovie._id);
     setVisibleMovies(newArr);
 

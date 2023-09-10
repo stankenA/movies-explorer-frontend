@@ -1,12 +1,13 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, FC } from 'react';
 
 import './SearchForm.scss';
 import SearchFilter from './SearchFilter/SearchFilter';
 
 import errorIcon from '../../images/error-icon.svg';
 import { useLocation } from 'react-router-dom';
+import { TSearchFormProps } from '../../utils/types/types';
 
-export default function SearchForm({ handleChange, handleSubmit }) {
+const SearchForm: FC<TSearchFormProps> = ({ handleChange, handleSubmit }) => {
 
   const [isErrored, setIsErrored] = useState(false);
   const [searchValue, setSearchValue] = useState('');
@@ -23,13 +24,13 @@ export default function SearchForm({ handleChange, handleSubmit }) {
     }
   }, []);
 
-  function changeSearchValue(evt) {
+  function changeSearchValue(evt: React.ChangeEvent<HTMLInputElement>) {
     setSearchValue(evt.target.value);
     handleChange(evt);
     setIsErrored(false);
   }
 
-  function submitSearch(evt) {
+  function submitSearch(evt: React.FormEvent<HTMLFormElement>) {
     if (searchValue === '' && location.pathname === '/movies') {
       setIsErrored(true);
       return;
@@ -54,7 +55,7 @@ export default function SearchForm({ handleChange, handleSubmit }) {
             name="search"
             className="search__input"
             placeholder="Фильмы"
-            required=''
+            required={false}
             value={searchValue}
             onChange={changeSearchValue}
           />
@@ -77,4 +78,6 @@ export default function SearchForm({ handleChange, handleSubmit }) {
       </form>
     </section>
   )
-}
+};
+
+export default SearchForm;

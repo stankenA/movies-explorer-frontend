@@ -1,10 +1,11 @@
-import React from 'react';
+import React, { FC } from 'react';
 
 import './Popup.scss';
 import checkIcon from '../../images/check-icon.svg';
 import warningIcon from '../../images/warning-icon.svg';
+import { TPopupProps } from '../../utils/types/types';
 
-export default function Popup({ isPoupOpened, onClose, onBgClose, popupMessage, isSuccessfull }) {
+const Popup: FC<TPopupProps> = ({ isPoupOpened, onClose, onBgClose, popupMessage, isSuccessfull }) => {
   return (
     <div className={`popup ${isPoupOpened ? 'popup_opened' : ''}`} onClick={onBgClose}>
       <div className="popup__wrapper">
@@ -20,4 +21,6 @@ export default function Popup({ isPoupOpened, onClose, onBgClose, popupMessage, 
       </div>
     </div>
   )
-}
+};
+
+export default Popup;

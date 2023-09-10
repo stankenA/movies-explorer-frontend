@@ -1,9 +1,9 @@
-import React from 'react';
+import React, { FC } from 'react';
 import { Link } from 'react-router-dom';
 import './Portfolio.scss';
 import { portfolioArr } from '../../utils/constants';
 
-export default function Portfolio() {
+const Portfolio: FC = () => {
   return (
     <>
       <h4 className="portfolio__title">
@@ -20,4 +20,6 @@ export default function Portfolio() {
       </ul>
     </>
   )
-}
+};
+
+export default Portfolio;

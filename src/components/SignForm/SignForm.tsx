@@ -1,26 +1,27 @@
-import React, { useState } from 'react';
+import React, { useState, FC } from 'react';
 import { Link } from 'react-router-dom';
 
 import './SignForm.scss';
 import logo from '../../images/logo.svg';
+import { TSignFormProps } from '../../utils/types/types';
 
-export default function SignForm({ isRegistration, handleChange, errors, isValid, onSubmit }) {
+const SignForm: FC<TSignFormProps> = ({ isRegistration, handleChange, errors, isValid, onSubmit }) => {
 
   const [nameValue, setNameValue] = useState('');
   const [emailValue, setEmailValue] = useState('');
   const [passwordValue, setPasswordValue] = useState('');
 
-  function handleNameChange(evt) {
+  function handleNameChange(evt: React.ChangeEvent<HTMLInputElement>) {
     setNameValue(evt.target.value);
     handleChange(evt);
   }
 
-  function handleEmailChange(evt) {
+  function handleEmailChange(evt: React.ChangeEvent<HTMLInputElement>) {
     setEmailValue(evt.target.value);
     handleChange(evt);
   }
 
-  function handlePasswordChange(evt) {
+  function handlePasswordChange(evt: React.ChangeEvent<HTMLInputElement>) {
     setPasswordValue(evt.target.value);
     handleChange(evt);
   }
@@ -126,4 +127,6 @@ export default function SignForm({ isRegistration, handleChange, errors, isValid
       </div>
     </section>
   )
-}
+};
+
+export default SignForm;
